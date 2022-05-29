@@ -1,0 +1,30 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--background: white">
+    <ion-buttons slot="start">
+      <ion-back-button icon="chevron-back" style="color: black">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: black">Contact Us</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <ion-img src="../../assets/images/ride-sharing.jpeg"></ion-img>
+  </div>
+  <div class="trip-details-main-container">
+    <div *ngFor="let a of contactUs.data">
+      <h5>{{ a.heading1 }}</h5>
+      <ion-text>
+        <p style="width: 50%;">{{ a.address }}</p>
+      </ion-text>
+      <h5>{{ a.heading2 }}</h5>
+      <ion-text>
+        <p>{{ a.email }}</p>
+      </ion-text>
+      <ion-text>
+        <p>{{ a.phone }}</p>
+      </ion-text>
+    </div>
+  </div>
+</ion-content>

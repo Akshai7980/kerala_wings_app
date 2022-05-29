@@ -1,0 +1,10 @@
+{
+  "name": "Book A Drive",
+  "integrations": {
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,38 @@
+<ion-app>
+  <ion-split-pane contentId="main-content">
+    <ion-menu contentId="main-content" type="overlay" (ionWillOpen)="ionWillOpen($event)">
+      <ion-content>
+
+        <!-- To refresh side bar -->
+        <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+          <ion-refresher-content></ion-refresher-content>
+        </ion-refresher>
+        <!-- To refresh side bar -->
+
+        <!-- side bar menus-->
+        <ion-list id="inbox-list">
+          <div class="details-container">
+            <div class="user-img-container">
+              <img src="../assets/images/user.png" alt="">
+            </div>
+            <div>
+              <ion-list-header> {{ this.userDetails?.first_name }} </ion-list-header>
+              <ion-note> +91 {{ this.userDetails?.phone_no }} </ion-note>
+            </div>
+          </div>
+
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
+            <ion-item routerDirection="root" lines="none" detail="false" routerLinkActive="selected"
+              (click)="openPage(i)">
+              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
+              <ion-label>{{ p.title }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+        <!-- side bar menus-->
+
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet id="main-content"></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

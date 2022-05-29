@@ -1,0 +1,74 @@
+<ion-content>
+  <!-- Banner Image -->
+  <div>
+    <img src="../../assets/images/carbook1.png" alt="">
+  </div>
+  <!-- Banner Image -->
+
+  <!-- Form to enter phone number -->
+  <form [formGroup]="loginForm" (ngSubmit)="sendOtp()">
+    <div id="sendOtpForm" *ngIf="!this.showOtpFields">
+      <div class="phone-main-container">
+        <div class="country-code-container">
+          <p>
+            +91
+          </p>
+        </div>
+        <div class="input-container">
+          <ion-input placeholder="Enter your mobile number" formControlName="mobile" type="number">
+          </ion-input>
+        </div>
+      </div>
+
+      <div class="send-button-container">
+        <ion-button shape="round" expand="full" type="submit" [disabled]="this.showLoader">
+          <ion-label *ngIf="!this.showLoader">
+            Send OTP
+          </ion-label>
+          <ion-label *ngIf="this.showLoader">
+            <div class="spinner-container">
+              <ion-spinner name="crescent"></ion-spinner>
+              Please Wait ...
+            </div>
+          </ion-label>
+        </ion-button>
+
+      </div>
+    </div>
+  </form>
+  <!-- Form to enter phone number -->
+
+  <!-- Form to enter OTP number -->
+  <form [formGroup]="otpForm" (ngSubmit)="otpSubmit()" *ngIf="this.showOtpFields"
+    class="animate__animated animate__fadeInUp">
+
+    <div class="otp-submit-main-container">
+      <div class="inner-container">
+
+        <p>We are sending a OTP(One Time Password) to this number</p>
+        <strong>
+          <p>+91 {{ this.loginForm.value.mobile }}</p>
+        </strong>
+
+        <div class="input-container">
+          <ion-input placeholder="000000" formControlName="otp" type="number" class="otp-input-field"></ion-input>
+        </div>
+      </div>
+
+      <div class="verify-button-container">
+        <ion-button shape="round" expand="full" type="submit">Verify</ion-button>
+      </div>
+
+      <div style="text-align: center; margin-top: 30%;">
+        <strong>
+          <p>
+            {{ this.userDetails.otp_mobile }}
+          </p>
+        </strong>
+      </div>
+    </div>
+
+  </form>
+  <!-- Form to enter OTP number -->
+
+</ion-content>

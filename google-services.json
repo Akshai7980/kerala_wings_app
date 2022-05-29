@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "714163898466",
+    "project_id": "keralawings-7e79b",
+    "storage_bucket": "keralawings-7e79b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:714163898466:android:3ddfef661c7c43c72ee93b",
+        "android_client_info": {
+          "package_name": "com.keralawings.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "714163898466-7n30av0u88n1etsk75vmt66j43vh3s0d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2DO7pV29EFBo5NgbI1B3TEzW3hJvq9c0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "714163898466-7n30av0u88n1etsk75vmt66j43vh3s0d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

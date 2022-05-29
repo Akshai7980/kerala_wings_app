@@ -1,0 +1,83 @@
+<ion-content>
+  <div style="padding: 25px; background-color: white; border-radius: 10px;">
+    <div style="margin-bottom: 30px;">
+      <h5> <strong> Hai, {{ this.userDetails.first_name }} </strong> </h5>
+      <p> You are a <strong> {{ this.userDetails.type }} </strong>, please go through the details which is registered with <strong> Kerala Wings </strong> </p>
+    </div>
+    <!-- <form [formGroup]="updateForm" (ngSubmit)="submitProfile()"> -->
+      <div>
+        <ion-label>First Name</ion-label>
+        <ion-input placeholder="Your first name" type="text" readOnly="true"
+          [value]=" this.userDetails?.first_name "></ion-input>
+      </div>
+
+      <div>
+        <ion-label>Last Name</ion-label>
+        <ion-input placeholder="Your last name" type="text" readOnly="true"
+          [value]=" this.userDetails?.last_name "></ion-input>
+      </div>
+
+      <div>
+        <ion-label>Code</ion-label>
+        <ion-input placeholder="Your code" type="text" readOnly="true"
+          [value]=" this.userDetails?.code "></ion-input>
+      </div>
+
+      <div>
+        <ion-label>Phone Number</ion-label>
+        <ion-input placeholder="Your phone number" type="number" readOnly="true"
+          [value]=" this.userDetails?.phone_no "></ion-input>
+      </div>
+
+      <div>
+        <ion-label>Address</ion-label>
+        <ion-textarea placeholder="Your address" type="text" autoGrow="true" rows="4" readOnly="true"
+          [value]=" this.userDetails?.address "></ion-textarea>
+      </div>
+
+      <div>
+        <ion-label>Licence Number</ion-label>
+        <ion-input placeholder="Your licence number" type="number" readOnly="true"
+          [value]=" this.userDetails?.licence_no "></ion-input>
+      </div>
+
+      <div>
+        <ion-label>Adhaar Number</ion-label>
+        <ion-input placeholder="Your adhaar number" type="number" readOnly="true"
+          [value]=" this.userDetails?.adhar "></ion-input>
+      </div>
+
+      <div>
+        <ion-label>Date of Birth</ion-label>
+        <ion-input placeholder="Your date of birth" type="date" [value]=" this.userDetails?.dob " readOnly="true">
+        </ion-input>
+      </div>
+
+      <div>
+        <ion-label>Driver Type</ion-label>
+        <ion-input placeholder="Driver type" type="text" [value]=" this.userDetails?.type " readOnly="true"></ion-input>
+      </div>
+
+      <div>
+        <ion-label>Alternate Mobile Number</ion-label>
+        <ion-input placeholder="Your alternate mobile number" type="number"
+          [value]=" this.userDetails?.home_mobile " readOnly="true"></ion-input>
+      </div>
+
+      <!-- <div style="text-align: center; display: flex; justify-content: space-evenly;">
+        <ion-button shape="round" type="submit" (click)="this.common.modalCtrl.dismiss()">Approve</ion-button>
+        <ion-button shape="round" type="submit" (click)="this.common.modalCtrl.dismiss()">Cancel</ion-button>
+      </div> -->
+    <!-- </form> -->
+  </div>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar style="--background: transparent;">
+    <div style="text-align: center; color: black;
+    font-size: 35px;">
+      <ion-icon name="close-circle" (click)="onDismissModal()"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-footer>

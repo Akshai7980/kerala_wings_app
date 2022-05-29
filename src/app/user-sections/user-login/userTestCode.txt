@@ -1,0 +1,58 @@
+            // if (responseData.message === 'Wrong UserName/Password') {
+            //   this.showLoader = false;
+            //   const alertHead = 'Failed!';
+            //   const alertMessage =
+            //     'Invalid login credentials, Wrong UserName/Password';
+            //   this.common.presentAlert(alertHead, alertMessage);
+            // } else {
+            //   this.showLoader = false;
+            //   this.common.navCtrl.navigateRoot('/user-dashborad');
+            //   const loadMessage =
+            //     '<strong>' +
+            //     this.loginForm.value.userName +
+            //     '</strong> successfully logged in.';
+            //   const loadTime = 1000;
+            //   this.common.presentLoading(loadMessage, loadTime);
+            // }
+
+                  <!-- <ion-item lines="none" style="--background: rgba(87, 15, 239, 0.1);
+          border-radius: 30px;
+  margin-bottom: 20px;">
+        <ion-icon name="lock-closed-outline" slot="start" style="color: #570fef;"></ion-icon>
+        <ion-input placeholder="OTP" type="password" [type]="showPassword ? 'password' : 'text'"
+          formControlName="password"></ion-input>
+        <ion-icon slot="end" [name]="showPassword ? 'eye' : 'eye-off'" (click)="showPassword = !showPassword">
+        </ion-icon>
+      </ion-item> -->
+
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 0px 15px;">
+        <div style="display: flex; align-items: center;">
+          <ion-checkbox style="--border-color: #570fef;
+              --border-color-checked: #570fef;
+              --background-checked: #feab1a; --size: 1rem;" (ionChange)="onCheckRemember($event)"
+            [checked]="isChecked"></ion-checkbox>
+          <p style="color: #FF8E00; font-size: 15px;
+              margin-left: 10px;">Remember Me</p>
+        </div>
+      </div>
+
+              <div>
+          <p style="color: #FF8E00; font-size: 15px;">Forgot Password?</p>
+        </div>
+
+              <ion-item lines="none" style="--background: rgba(87, 15, 239, 0.1);
+        border-radius: 30px;
+  margin-bottom: 20px;">
+        <ion-icon name="mail-outline" slot="start" style="color: #570fef;"></ion-icon>
+        <ion-input placeholder="Email ID" type="email" formControlName="userName" autocapitalize="true"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" style="--background: rgba(87, 15, 239, 0.1);
+          border-radius: 30px;
+  margin-bottom: 20px;">
+        <ion-icon name="lock-closed-outline" slot="start" style="color: #570fef;"></ion-icon>
+        <ion-input placeholder="Password" type="password" [type]="showPassword ? 'password' : 'text'"
+          formControlName="password"></ion-input>
+        <ion-icon slot="end" [name]="showPassword ? 'eye' : 'eye-off'" (click)="showPassword = !showPassword">
+        </ion-icon>
+      </ion-item>

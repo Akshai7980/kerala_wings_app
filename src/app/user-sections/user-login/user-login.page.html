@@ -1,0 +1,68 @@
+<ion-content>
+  <div>
+    <img src="../../../assets/images/taxi_call_dribbble.gif" alt="">
+  </div>
+
+  <div id="sendOtpForm" *ngIf="!this.showOtpFields" class="main-container">
+    <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
+
+      <ion-item lines="none">
+        <ion-icon name="call-outline" slot="start"></ion-icon>
+        <ion-input placeholder="Registered Mobile Number" type="number" formControlName="mobile"></ion-input>
+      </ion-item>
+
+      <div class="button-container">
+        <ion-button shape="round" expand="block" type="submit" [disabled]="this.showLoader">
+          <ion-label *ngIf="!this.showLoader">
+            Login
+          </ion-label>
+          <ion-label *ngIf="this.showLoader">
+            <div class="button-text-container">
+              <ion-spinner></ion-spinner>
+              Please Wait ...
+            </div>
+          </ion-label>
+        </ion-button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Form to enter OTP number -->
+  <form [formGroup]="otpForm" (ngSubmit)="otpSubmit()" *ngIf="this.showOtpFields"
+    class="animate__animated animate__fadeInUp">
+
+    <div class="otp-submit-main-container">
+      <div class="inner-container">
+
+        <p>We are sending a OTP(One Time Password) to this number</p>
+        <strong>
+          <p>+91 {{ this.loginForm.value.mobile }}</p>
+        </strong>
+
+        <div class="input-container">
+          <ion-input placeholder="000000" formControlName="otp" type="number" class="otp-input-field"></ion-input>
+        </div>
+      </div>
+
+      <div class="verify-button-container">
+        <ion-button shape="round" expand="full" type="submit">Verify</ion-button>
+      </div>
+
+      <div style="text-align: center; margin-top: 30%;">
+        <strong>
+          <p>
+            {{ this.userDetails.otp_mobile }}
+          </p>
+        </strong>
+      </div>
+    </div>
+
+  </form>
+  <!-- Form to enter OTP number -->
+
+  <div class="create-account-container">
+    <p>Don't you have an account?</p>
+    <span (click)="this.common.router.navigate(['/user-registration'])"> Register </span>
+  </div>
+
+</ion-content>

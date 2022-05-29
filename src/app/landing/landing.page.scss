@@ -1,0 +1,28 @@
+ion-content {
+  --background: #fff url("../../assets/images/taxi-cab-street.jpeg") no-repeat center center / cover;
+}
+
+h1 {
+  color: white;
+  font-weight: 600;
+  margin: 0px;
+  font-family: sans-serif;
+  font-size: 35px;
+}
+
+p {
+  color: white;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: monospace;
+}
+
+ion-button {
+  --background: #ffffffd6;
+    text-transform: none;
+    height: 50px;
+    font-weight: 600;
+    font-size: 18px;
+    color: #000000d1;
+    margin-bottom: 15px;
+}

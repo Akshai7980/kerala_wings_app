@@ -1,0 +1,136 @@
+          <!-- <ion-item>
+            <ion-label position="floating">Customer Name</ion-label>
+            <ion-input type="text" formControlName="customer_name" [value]="userDetails?.customer_name"></ion-input>
+          </ion-item> -->
+
+          <!-- <ion-item>
+            <ion-label position="floating">Phone Number</ion-label>
+            <ion-input type="number" formControlName="customer_number" [value]="userDetails?.customer_number"></ion-input>
+          </ion-item> -->
+
+          <!-- <ion-item>
+            <ion-label position="floating">Alternate Number</ion-label>
+            <ion-input type="number" formControlName="landnumber" [value]="userDetails?.landnumber"></ion-input>
+          </ion-item> -->
+
+                              <ion-item>
+            <ion-label position="floating">Pick Up Address</ion-label>
+            <ion-textarea type="text" row="4" formControlName="address" [value]="userDetails?.address"></ion-textarea>
+          </ion-item>
+
+                    <ion-item>
+            <ion-label position="floating">Vehicle Name</ion-label>
+            <ion-input type="text" formControlName="vehicle_name" [value]="userDetails?.landnumber"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Vehicle Type</ion-label>
+            <ion-input type="text" formControlName="vehicle_type" [value]="userDetails?.landnumber"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Vehicle Number</ion-label>
+            <ion-input type="text" formControlName="vehicle_number" [value]="userDetails?.landnumber"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Choose Driver</ion-label>
+            <ion-input formControlName="driver"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Choose Driver</ion-label>
+            <ion-input formControlName="location"></ion-input>
+          </ion-item>
+
+              // customer_name: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // customer_number: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // landnumber: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // address: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // vehicle: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // vehicle_name: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+        // vehicle_number: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // driver: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // location: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+
+        // customer_name: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // customer_number: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // landnumber: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // address: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // vehicle: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // vehicle_name: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // vehicle_type: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+    // vehicle_number: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),
+        // location: new FormControl(undefined, [
+    //   Validators.required,
+    //   Validators.maxLength(1),
+    //   Validators.minLength(1),
+    // ]),

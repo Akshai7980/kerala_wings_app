@@ -1,0 +1,231 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--background: white">
+    <ion-buttons slot="start">
+      <ion-back-button icon="chevron-back" style="color: black">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: black">Booking {{ segmentChoosed | titlecase }}
+    </ion-title>
+  </ion-toolbar>
+
+  <ion-segment [(ngModel)]="segmentChoosed" (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="driver">
+      <ion-icon name="person"></ion-icon>
+      <ion-label>Book a Driver</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="cab">
+      <ion-icon name="car"></ion-icon>
+      <ion-label>Book a Cab</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content>
+  <div style="padding: 15px">
+    <div [ngSwitch]="segmentChoosed">
+      <div *ngSwitchCase="'cab'">
+        <form [formGroup]="cabBookingForm" (ngSubmit)="submitCab()">
+
+          <div style="display: flex;">
+            <ion-item style="margin-right: 5px;" id="trigger-start-date-cab">
+              <ion-label position="floating">Start Date</ion-label>
+              <ion-input readonly="true" formControlName="booking_date">
+              </ion-input>
+            </ion-item>
+
+            <ion-modal trigger="trigger-start-date-cab">
+              <ng-template>
+                <ion-content>
+                  <ion-datetime presentation="date" (ionChange)="doSomethingDate($event)">
+                    <div slot="title"></div>
+                  </ion-datetime>
+                </ion-content>
+              </ng-template>
+            </ion-modal>
+
+            <ion-item style="margin-left: 5px;" id="trigger-start-time-cab">
+              <ion-label position="floating">Start Time</ion-label>
+              <ion-input readonly="true" formControlName="timepicker">
+              </ion-input>
+            </ion-item>
+
+            <ion-modal trigger="trigger-start-time-cab">
+              <ng-template>
+                <ion-content>
+                  <ion-datetime presentation="time" (ionChange)="doSomethingTime($event)">
+                    <div slot="title"></div>
+                  </ion-datetime>
+                </ion-content>
+              </ng-template>
+            </ion-modal>
+          </div>
+
+          <ion-item id="trigger-days-cab">
+            <ion-label position="floating">Number Of Days</ion-label>
+            <ion-input readonly="true" formControlName="no_day"></ion-input>
+          </ion-item>
+
+          <ion-modal trigger="trigger-days-cab">
+            <ng-template>
+              <ion-content>
+                <div style="display: flex;
+                flex-wrap: wrap; padding: 15px;">
+                  <p style="margin: 0px;
+                  padding: 20px;
+                  display: flex;
+                  font-weight: 600;
+                  align-items: center;" *ngFor="let d of allDays" (click)="doSomethingDays(d, 'cab')"> {{ d?.No }} </p>
+                </div>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+
+          <ion-item id="trigger-end-date-cab">
+            <ion-label position="floating">End Date</ion-label>
+            <ion-input readonly="true" formControlName="end_date" [value]=" endDateChoosed | date:'mediumDate' ">
+            </ion-input>
+          </ion-item>
+
+          <ion-modal trigger="trigger-end-date-cab">
+            <ng-template>
+              <ion-content>
+                <ion-datetime presentation="date" (ionChange)="doSomethingEndDate($event, 'cab')">
+                  <div slot="title"></div>
+                </ion-datetime>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+
+          <ion-item>
+            <ion-label position="floating">Vehicle Type</ion-label>
+            <ion-select formControlName="vehicle_type">
+              <ion-select-option [value]="v.vehicle_name" *ngFor="let v of allVehicles"> {{ v.vehicle_name }} </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Destination</ion-label>
+            <ion-input autocapitalize="true" type="text" formControlName="destination"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Remark</ion-label>
+            <ion-textarea autocapitalize="true" formControlName="remark" rows="4" autoGrow="true"></ion-textarea>
+          </ion-item>
+
+          <div style="text-align: center">
+            <!-- <ion-button type="submit" shape="round" style="text-transform: none">Book Now</ion-button> -->
+            <ion-button expand="block" type="submit" shape="round" style="text-transform: none; --background: #3425c7;--box-shadow: none;
+            height: 50px;">
+              Proceed Booking
+            </ion-button>
+          </div>
+        </form>
+      </div>
+
+      <div *ngSwitchCase="'driver'">
+        <form [formGroup]="driverBookingForm" (ngSubmit)="submitDriver()">
+
+          <div style="display: flex;">
+            <ion-item id="trigger-start-date" style="margin-right: 5px;">
+              <ion-label position="floating">Start Date</ion-label>
+              <ion-input readOnly="true" formControlName="booking_date">
+              </ion-input>
+            </ion-item>
+
+            <ion-modal trigger="trigger-start-date">
+              <ng-template>
+                <ion-content>
+                  <ion-datetime presentation="date" (ionChange)="doSomethingDate($event)">
+                    <div slot="title"></div>
+                  </ion-datetime>
+                </ion-content>
+              </ng-template>
+            </ion-modal>
+
+            <ion-item id="trigger-start-time" style="margin-left: 5px;">
+              <ion-label position="floating">Start Time</ion-label>
+              <ion-input readOnly="true" formControlName="timepicker" [value]="timeChoosed | date:'shortTime' ">
+              </ion-input>
+            </ion-item>
+
+            <ion-modal trigger="trigger-start-time">
+              <ng-template>
+                <ion-content>
+                  <ion-datetime presentation="time" (ionChange)="doSomethingTime($event)">
+                    <div slot="title"></div>
+                  </ion-datetime>
+                </ion-content>
+              </ng-template>
+            </ion-modal>
+          </div>
+
+          <ion-item id="trigger-days">
+            <ion-label position="floating">Number Of Days</ion-label>
+            <ion-input readOnly="true" formControlName="no_day">
+            </ion-input>
+          </ion-item>
+
+          <ion-modal trigger="trigger-days">
+            <ng-template>
+              <ion-content>
+                <div style="display: flex;
+                flex-wrap: wrap; padding: 15px;">
+                  <p style="margin: 0px;
+                  padding: 20px;
+                  display: flex;
+                  font-weight: 600;
+                  align-items: center;" *ngFor="let d of allDays" (click)="doSomethingDays(d, 'driver')"> {{ d?.No }} </p>
+                </div>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+
+          <ion-item id="trigger-end-date">
+            <ion-label position="floating">End Date</ion-label>
+            <ion-input readOnly="true" formControlName="end_date" [value]="endDateChoosed | date:'mediumDate' ">
+            </ion-input>
+          </ion-item>
+
+          <ion-modal trigger="trigger-end-date">
+            <ng-template>
+              <ion-content>
+                <ion-datetime presentation="date" (ionChange)="doSomethingEndDate($event, 'driver')">
+                  <div slot="title"></div>
+                </ion-datetime>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+
+          <ion-item>
+            <ion-label position="floating">Required Driver Name</ion-label>
+            <ion-input autocapitalize="true" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Rejected Driver Name</ion-label>
+            <ion-input autocapitalize="true" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Destination</ion-label>
+            <ion-input autocapitalize="true" type="text" formControlName="destination"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Remark</ion-label>
+            <ion-textarea autocapitalize="true" formControlName="remark" rows="4" autoGrow="true"></ion-textarea>
+          </ion-item>
+
+          <div style="text-align: center">
+            <!-- <ion-button type="submit" shape="round" style="text-transform: none">Book Now</ion-button> -->
+            <ion-button expand="block" type="submit" shape="round" style="text-transform: none; --background: #3425c7;--box-shadow: none;
+            height: 50px;">
+              Proceed Booking
+            </ion-button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ion-content>

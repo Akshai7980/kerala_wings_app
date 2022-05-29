@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Leave History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <!-- Skeleton screen -->
+<div *ngIf="leaveHistory.length === 0">
+  <ion-list>
+    <ion-item *ngFor="let s of skeleton">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>
+  <!-- Skeleton screen -->
+
+  <div style="display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  margin: 10px;
+  margin-bottom: 15px;
+  box-shadow: 1px 1px 5px 1px lightgrey;
+  border-radius: 7px;" *ngFor="let leave of leaveHistory" class="animate__animated animate__fadeIn">
+      <div>
+          <p style="margin: 0px 0px 7px 0px;
+          color: #570fef;
+          font-weight: 600;
+          font-size: 17px;"> {{ leave?.leave_type }} </p>
+
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 15px;">
+              <div style="display: flex;
+              align-items: center; margin-right: 20px;">
+<ion-icon name="calendar-outline" style="color: #570fef;
+margin-right: 5px;"></ion-icon>
+                  <span style="font-size: 15px; color: #4F4F4F;"> From : {{ leave?.lock_start }} </span>
+              </div>
+
+              <div style="display: flex;
+              align-items: center;">
+<ion-icon name="calendar-outline" style="color: #570fef;
+margin-right: 5px;"></ion-icon>
+                  <span style="font-size: 15px; color: #4F4F4F;"> To : {{ leave?.lock_end }} </span>
+              </div>
+          </div>
+
+      </div>
+
+  </div>
+
+</ion-content>

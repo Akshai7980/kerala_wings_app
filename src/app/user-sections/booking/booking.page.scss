@@ -1,0 +1,36 @@
+ion-segment {
+  padding: 0px 10px;
+  ion-segment-button {
+    --indicator-color: #3425c7;
+    --color-checked: #3425c7;
+    font-weight: 600;
+  }
+}
+
+ion-item {
+  border: 2px solid #3880ff;
+  border-radius: 7px;
+  margin-bottom: 15px;
+  ion-input {
+    .has-focus {
+      border: 2px solid #5b9bd1 !important;
+    }
+  }
+}
+
+ion-modal {
+  --width: 80%;
+  --height: 50%;
+  --border-radius: 10px;
+}
+
+ion-datetime {
+  .item-native .item-inner {
+    .calendar-action-buttons {
+      display: none !important;
+    }
+    .calendar-days-of-week{
+      display: none !important;
+    }
+  }
+}

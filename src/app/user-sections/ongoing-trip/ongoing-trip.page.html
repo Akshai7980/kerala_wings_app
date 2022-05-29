@@ -1,0 +1,91 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--background: white">
+    <ion-buttons slot="start">
+      <ion-back-button icon="chevron-back" style="color: black">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: black">Ongoing Trip</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <ion-img src="../../assets/images/ride-sharing.jpeg"></ion-img>
+  </div>
+
+  <div class="trip-details-main-container , animate__animated animate__fadeIn" *ngIf="activeTrip.length === 0 && activeDriver.length === 0">
+    <h1 style="text-align: center;
+    margin: 15% 0% 10% 0%;
+    font-family: cursive;
+    font-size: 40px;
+    color: white;
+    font-weight: 600;">You are not having any active trip or booked driver.</h1>
+    <div style="text-align: center; margin-bottom: 10%;">
+      <ion-button fill="outline" shape="round" (click)="gotoPage('/booking')">
+        Book Cab / Book Driver
+      </ion-button>
+    </div>
+  </div>
+
+  <div *ngIf="activeTrip.length !== 0">
+    <div class="trip-details-main-container , animate__animated animate__fadeIn" *ngFor="let trip of activeTrip ">
+      <div class="booked-ride-text">
+        <div>
+          <h6> {{ trip?.updated_at | date:'mediumDate' }} </h6>
+        </div>
+        <div>
+          <ion-chip style="--background: #FACA30;">
+            <ion-icon name="car-sport" style="color: black;"></ion-icon>
+            <ion-label style="color: black;">Taxi</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+
+      <div class="trip-details-container">
+        <div>
+          <h6>Start Time</h6>
+          <h6>{{ trip?.timepicker }}</h6>
+        </div>
+        <div>
+          <h6>Pick Up Address</h6>
+          <p>{{ trip?.address }}</p>
+          <p>{{ trip?.location }}</p>
+          <h6>Drop Off Address</h6>
+          <p>{{ trip?.destination }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="activeDriver.length !== 0">
+    <div class="trip-details-main-container , animate__animated animate__fadeIn" *ngFor="let trip of activeDriver ">
+      <div class="booked-ride-text">
+        <div>
+          <h6>{{ trip?.updated_at | date:'mediumDate' }}</h6>
+        </div>
+        <div>
+          <ion-chip style="--background: white;">
+            <ion-icon name="man" style="color: black;"></ion-icon>
+            <ion-label style="color: black;">Driver</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+
+      <div class="trip-details-container">
+        <div>
+          <h6>Start Time</h6>
+          <h6>{{ trip?.timepicker }}</h6>
+        </div>
+        <div>
+          <h6>Pick Up Address</h6>
+          <p>{{ trip?.address }}</p>
+          <p>{{ trip?.location }}</p>
+          <h6>Drop Off Address</h6>
+          <p>{{ trip?.destination }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</ion-content>

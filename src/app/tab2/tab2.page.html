@@ -1,0 +1,172 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button>
+        <ion-icon name="menu-outline" style="color: white"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title>Hai {{ this.userDetails.first_name }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <swiper pager="true" [initialSlide]="0" [slidesPerView]="1" [autoplay]="true" [loop]="true" [simulateTouch]="true"
+    [allowSlideNext]="true" #slideWithNav (slideChange)="onSlideChange(sliderImages,slideWithNav)"
+    style="margin: 10px; border-radius: 7px">
+    <ng-template swiperSlide *ngFor="let s of sliderImages.slidesItems; let i=index" (ionChange)="onChange(i)">
+      <img style="height: 220px; object-fit: inherit; width: 100%" [src]="s.Image" />
+    </ng-template>
+  </swiper>
+
+  <ion-card *ngIf="tripDetails?.length === 1 && tripDetails[0].driver_view_status === 0" style="
+      background: red;
+      padding: 20px;
+      color: white;
+      font-weight: 600;
+      height: auto;
+      width: auto;
+      margin: 10px 25px;
+    " (click)="gotoPage('/tabs/tab1')">
+    <div style="display: flex; align-items: center; justify-content: space-evenly">
+      <div style="margin-right: 7px; font-size: 20px; font-weight: 600">
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </div>
+      <div>
+        Hai {{ userDetails?.first_name }} you are having a trip and you haven't
+        seen it yet.
+      </div>
+    </div>
+  </ion-card>
+
+  <ion-card *ngIf="tripDetails?.length === 1 && tripDetails[0].driver_view_status === 1" style="
+      background: green;
+      padding: 20px;
+      color: white;
+      font-weight: 600;
+      height: auto;
+      width: auto;
+      margin: 10px 25px;
+    " (click)="gotoPage('/tabs/tab1')">
+    <div style="display: flex; align-items: center">
+      <div style="margin-right: 7px; font-size: 20px; font-weight: 600">
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </div>
+      <div>
+        Hai {{ userDetails?.first_name }} you are having one active trip.
+      </div>
+    </div>
+  </ion-card>
+
+  <ion-card *ngIf="tripDetails?.length === 1 && tripDetails[0].driver_view_status === 2" style="
+      background: #4660f2;
+      padding: 20px;
+      color: white;
+      font-weight: 600;
+      height: auto;
+      width: auto;
+      margin: 10px 25px;
+    " (click)="gotoPage('/tabs/tab1')">
+    <div style="display: flex; align-items: center">
+      <div style="margin-right: 7px; font-size: 20px; font-weight: 600">
+        <ion-icon name="information-circle-outline"></ion-icon>
+      </div>
+      <div>
+        Hai {{ userDetails?.first_name }} you are having one un-closed trip.
+      </div>
+    </div>
+  </ion-card>
+
+  <div style="display: flex; align-items: center; justify-content: space-evenly">
+    <div>
+      <ion-card class="ion-activatable ripple-parent" (click)="gotoPage('/tabs/tab1')">
+        <div style="display: grid;
+        justify-items: center;">
+          <ion-icon name="location" style="font-size: 55px;"></ion-icon>
+          <ion-text style="display: flex;
+          align-items: center;">Active Trip</ion-text>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+    </div>
+
+    <div>
+      <ion-card class="ion-activatable ripple-parent" (click)="gotoPage('/apply-leave')">
+        <div style="display: grid;
+        justify-items: center;">
+          <ion-icon name="calendar-number" style="font-size: 55px;"></ion-icon>
+          <ion-text style="display: flex;
+          align-items: center;">Apply Leave</ion-text>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: center; justify-content: space-evenly">
+    <div>
+      <ion-card class="ion-activatable ripple-parent" (click)="gotoPage('/leave-history')">
+        <div style="display: grid;
+        justify-items: center;">
+          <ion-icon name="calendar" style="font-size: 55px;"></ion-icon>
+          <ion-text style="display: flex;
+          align-items: center;">Leave History</ion-text>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+    </div>
+
+    <div>
+      <ion-card class="ion-activatable ripple-parent" (click)="gotoPage('/tabs/tab2')">
+        <div style="display: grid;
+        justify-items: center;">
+          <ion-icon name="speedometer" style="font-size: 55px;"></ion-icon>
+          <ion-text style="display: flex;
+          align-items: center;">Tariff</ion-text>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+    </div>
+  </div>
+
+  <div style="display: flex; align-items: center; justify-content: space-evenly">
+    <ion-card style="width: 100%; margin: 10px 23px 0px 23px" class="ion-activatable ripple-parent"
+      (click)="gotoPage('/tabs/tab2')">
+      <div style="text-align: center">
+        <ion-icon name="wallet" style="font-size: 55px;"></ion-icon>
+        <ion-text style="display: flex;
+        align-items: center;">Payment</ion-text>
+      </div>
+      <ion-ripple-effect></ion-ripple-effect>
+    </ion-card>
+
+    <!-- <ion-list class="ion-padding-bottom">
+        <ion-radio-group [value]="loopMode" [(ngModel)]="loopMode">
+          <ion-list-header color="medium">
+            <ion-label>Select Alert Preference</ion-label>
+          </ion-list-header>
+          <ion-item>
+            <ion-label>Once</ion-label>
+            <ion-radio slot="start" value="once"></ion-radio>
+          </ion-item>
+          <ion-item>
+            <ion-label>Loop</ion-label>
+            <ion-radio slot="start" value="loop"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+      <ion-card class="ion-margin-top">
+        <ion-card-header>
+          <ion-card-subtitle>Ionic Features</ion-card-subtitle>
+          <ion-card-title>Ring or Vibrate</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          You can make notifications, calls or events in your apps make sound or vibrate depending on the phone's audio mode
+          (ring/vibrate/silent). You can also decide whether to loop a particular sound or use a vibration pattern
+        </ion-card-content>
+      </ion-card> -->
+  </div>
+</ion-content>
+
+<!-- <ion-footer>
+  <ion-button color="danger" size="full" (click)="createAlert()">Ring / Vibrate</ion-button>
+</ion-footer> -->

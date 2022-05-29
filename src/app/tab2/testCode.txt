@@ -1,0 +1,142 @@
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title style="display: flex;
+      align-items: center;">
+        <ion-icon name="car-sport" style="margin-right: 10px;"></ion-icon> Taxi Driver
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      Hai Ajeesh , you are a taxi driver. We wishing you a very happy journey for all you trips.
+    </ion-card-content>
+  </ion-card> -->
+
+  <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title style="display: flex;
+      align-items: center;">
+        <ion-icon name="person-circle-outline" style="margin-right: 10px;"></ion-icon>
+        Profile Completed &nbsp; &nbsp; 50%</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-progress-bar value="0.5" style="height: 10px;
+      border-radius: 10px;" buffer="0.5"></ion-progress-bar>
+    </ion-card-content>
+  </ion-card> -->
+
+      <!-- <ion-card-content>
+      Here you can see the currently active trips and all.
+    </ion-card-content> -->
+
+      <!-- <ion-card>
+    <ion-card-header>
+      <ion-card-title style="display: flex;
+      align-items: center;">
+        <ion-icon name="settings" style="margin-right: 10px;"></ion-icon>
+        Settings
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-item style="--background: transparent;" lines="none">
+        <ion-label>Push Notification</ion-label>
+        <ion-toggle></ion-toggle>
+      </ion-item>
+      <ion-item style="--background: transparent;" lines="none">
+        <ion-label>Vibration Once</ion-label>
+        <ion-toggle></ion-toggle>
+      </ion-item>
+      <ion-item style="--background: transparent;" lines="none">
+        <ion-label>Vibration Loop</ion-label>
+        <ion-toggle></ion-toggle>
+      </ion-item>
+      <ion-item style="--background: transparent;" lines="none">
+        <ion-label>Notification Tone Low</ion-label>
+        <ion-toggle></ion-toggle>
+      </ion-item>
+      <ion-item style="--background: transparent;" lines="none">
+        <ion-label>Notification Tone Medium</ion-label>
+        <ion-toggle></ion-toggle>
+      </ion-item>
+      <ion-item style="--background: transparent;" lines="none">
+        <ion-label>Notification Tone High</ion-label>
+        <ion-toggle></ion-toggle>
+      </ion-item>
+    </ion-card-content>
+  </ion-card> -->
+
+
+      <!-- <ion-card-content>
+      Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    </ion-card-content> -->
+
+        <!-- <ion-card-content>
+      Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    </ion-card-content> -->
+
+        <!-- <ion-card-content>
+      Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    </ion-card-content> -->
+
+        <!-- <ion-card-content>
+      Keep close to Nature's heart... and break clear away, once in awhile,
+      and climb a mountain or spend a week in the woods. Wash your spirit clean.
+    </ion-card-content> -->
+
+        // onChange(i) {
+    //   console.log(i);
+    // }
+
+        // slideNext(slideView) {
+    //   slideView.swiperRef.slideNext(500);
+    // }
+
+    // slidePrev(slideView) {
+            // this.checkIfNavDisabled(object, slideView);
+    //   slideView.swiperRef.slidePrev(500);
+    // }
+
+    // checkIfNavDisabled(object, slideView) {
+    //   this.checkisBeginning(object, slideView);
+    //   this.checkisEnd(object, slideView);
+    // }
+
+    // checkisBeginning(object, slideView) {
+    //   object.isBeginningSlide = slideView?.swiperRef?.isBeginning;
+    //   console.log('object.isBeginningSlide', object);
+
+    // }
+    // checkisEnd(object, slideView) {
+    //   object.isEndSlide = slideView?.swiperRef?.isEnd;
+    //   console.log('object.isEndSlide', object);
+    // }
+
+    // onSwiper(event) {
+    //   console.log(event);
+    // }
+
+      // @ViewChild('slideWithNav2', { static: false }) slideWithNav2: IonSlides;
+  // @ViewChild('slideWithNav3') slideWithNav3: Swiper;
+  // sliderOne: any;
+
+  const swiper = new Swiper('.swiper-container', {
+  slidesPerView: 3,
+  spaceBetween: 30,
+  centeredSlides: true,
+  autoplay: {
+    delay: 2500,
+    disableOnInteraction: false,
+  },
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+  },
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+});

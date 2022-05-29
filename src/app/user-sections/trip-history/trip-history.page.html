@@ -1,0 +1,96 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar style="--background: white">
+    <ion-buttons slot="start">
+      <ion-back-button icon="chevron-back" style="color: black">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: black">Trip History</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <!-- Skeleton screen -->
+<div *ngIf="closedTrip.length === 0 && closedDriver.length === 0">
+  <ion-list>
+    <ion-item *ngFor="let s of skeleton">
+      <ion-thumbnail slot="start">
+        <ion-skeleton-text animated></ion-skeleton-text>
+      </ion-thumbnail>
+      <ion-label>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+        </h3>
+        <p>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </p>
+        <p>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</div>
+
+  <!-- <div>
+    <ion-img src="../../assets/images/carbook2.jpeg" style="height: 300px;"></ion-img>
+  </div> -->
+  <div class="trip-details-main-container , animate__animated animate__fadeIn" *ngFor="let trip of closedDriver ">
+    <div class="booked-ride-text">
+      <div>
+        <h6> {{ trip?.updated_at | date:'mediumDate' }} </h6>
+      </div>
+      <div>
+        <ion-chip style="--background: white;">
+          <ion-icon name="man" style="color: black;"></ion-icon>
+          <ion-label style="color: black;">Driver</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+
+    <div class="trip-details-container">
+      <div>
+        <h6>Start Time</h6>
+        <p> {{ trip?.timepicker }} </p>
+      </div>
+      <div style="width: 45%;">
+        <h6>Pick Up Address</h6>
+        <p> {{ trip?.address }} </p>
+        <p> {{ trip?.location }} </p>
+        <h6>Drop Off Address</h6>
+        <p> {{ trip?.destination }} </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="trip-details-main-container , animate__animated animate__fadeIn" *ngFor="let trip of closedTrip ">
+    <div class="booked-ride-text">
+      <div>
+        <h6> {{ trip?.updated_at | date:'mediumDate' }} </h6>
+      </div>
+      <div>
+        <ion-chip style="--background: #FACA30;">
+          <ion-icon name="car-sport" style="color: black;"></ion-icon>
+          <ion-label style="color: black;">Cab</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+
+    <div class="trip-details-container">
+      <div>
+        <h6>Start Time</h6>
+        <p> {{ trip?.timepicker }} </p>
+      </div>
+      <div style="width: 45%;">
+        <h6>Pick Up Address</h6>
+        <p> {{ trip?.address }} </p>
+        <p> {{ trip?.location }} </p>
+        <h6>Drop Off Address</h6>
+        <p> {{ trip?.destination }} </p>
+      </div>
+    </div>
+
+  </div>
+
+</ion-content>

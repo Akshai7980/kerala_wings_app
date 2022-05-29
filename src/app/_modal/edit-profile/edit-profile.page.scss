@@ -1,0 +1,21 @@
+ion-content {
+  --background: transparent;
+}
+ion-input {
+  --background: rgb(70 96 242 / 15%);
+  border-radius: 10px;
+  font-size: 15px;
+  color: #4F4F4F;
+  --padding-start: 20px;
+  margin: 10px 0px 15px 0px;
+  height: 45px;
+}
+
+ion-textarea {
+  --background: rgb(70 96 242 / 15%);
+  border-radius: 10px;
+  font-size: 15px;
+  color: #4F4F4F;
+  --padding-start: 20px;
+  margin: 10px 0px 15px 0px;
+}

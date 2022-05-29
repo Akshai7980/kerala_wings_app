@@ -1,0 +1,132 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar style="--background: white">
+    <ion-buttons slot="start">
+      <ion-back-button icon="chevron-back" style="color: black">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title style="color: black"> Profile </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div style="text-align: center">
+    <div>
+      <img
+        src="../../assets/images/user.png"
+        alt=""
+        style="height: 150px; object-fit: cover"
+      />
+    </div>
+  </div>
+
+  <form [formGroup]="userProfileForm" (ngSubmit)="submitProfile()">
+    <div style="margin: 0px 25px 25px 25px; font-size: large">
+      <ion-item lines="none">
+        <ion-label position="floating">Name</ion-label>
+        <ion-input readonly="true" formControlName="name"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          formControlName="email"
+          type="email"
+          autocapitalize="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="floating">Address</ion-label>
+        <ion-textarea
+          autoGrow="true"
+          autocapitalize="true"
+          rows="4"
+          formControlName="address"
+          type="text"
+        ></ion-textarea>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="floating">Location</ion-label>
+        <ion-input
+          formControlName="location"
+          type="text"
+          autocapitalize="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-list
+        style="
+          border: 2px solid #3425c7 !important;
+          border-radius: 7px;
+          margin-bottom: 15px;
+        "
+      >
+        <ion-radio-group value="biff">
+          <ion-list-header>
+            <ion-label style="font-size: 17px">Gender</ion-label>
+          </ion-list-header>
+
+          <ion-item lines="none" style="border: 2px solid white !important">
+            <ion-label>Male</ion-label>
+            <ion-radio slot="start" value="male"></ion-radio>
+          </ion-item>
+
+          <ion-item lines="none" style="border: 2px solid white !important">
+            <ion-label>Female</ion-label>
+            <ion-radio slot="start" value="female"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list>
+
+      <ion-item lines="none">
+        <ion-label position="floating">Phone Number</ion-label>
+        <ion-input
+          readonly="true"
+          formControlName="phone"
+          type="number"
+          max="10"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="floating">Alternate Number</ion-label>
+        <ion-input
+          formControlName="landnumber"
+          type="number"
+          max="10"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="floating">Vehicle Name</ion-label>
+        <ion-input
+          formControlName="vehicleName"
+          type="text"
+          autocapitalize="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="floating">Vehicle Type</ion-label>
+        <ion-input
+          formControlName="vehicleType"
+          type="text"
+          autocapitalize="true"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="floating">Vehicle Number</ion-label>
+        <ion-input formControlName="vehicleNumber" type="text"></ion-input>
+      </ion-item>
+
+      <div style="text-align: center">
+        <ion-button expand="block" type="submit" shape="round" style="text-transform: none; --background: #3425c7;--box-shadow: none;
+        height: 50px;">
+          Update Profile
+        </ion-button>
+      </div>
+    </div>
+  </form>
+</ion-content>

@@ -1,0 +1,140 @@
+// Page header styles
+ion-header {
+  .header-container {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+    justify-content: space-between;
+    padding: 10px;
+
+    .inner-header-container {
+      display: flex;
+      align-items: center;
+
+      ion-avatar {
+        height: 45px;
+        width: 45px;
+      }
+    }
+
+    ion-icon {
+      font-size: 25px;
+    }
+  }
+
+  .header-text-container {
+    padding: 10px 0px 15px 15px;
+
+    h1 {
+      font-weight: 600;
+      margin: 0px;
+      font-family: sans-serif;
+      font-size: 25px;
+    }
+
+    span {
+      color: #f42c18;
+    }
+  }
+
+  .header-search-container {
+    padding: 10px 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    ion-searchbar {
+      border-radius: 30px;
+      border: 1px solid grey;
+      height: 40px;
+    }
+  }
+}
+
+// Trip details container styles
+.trip-details-main-container {
+  background-color: #3425c7;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 15px;
+
+  .booked-ride-text {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h6 {
+      color: white;
+      font-weight: 600;
+    }
+
+    ion-chip {
+      --background: #aa7cff;
+    }
+  }
+  .trip-details-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0px 15px;
+
+    h6 {
+      color: white;
+      font-weight: 600;
+    }
+    p {
+      margin: 0px;
+      color: #866dec;
+    }
+  }
+
+  ion-button {
+    --border-color: #eaa6a3;
+    --color: white;
+    font-weight: 600;
+    --background: transparent;
+  }
+}
+
+.section-container {
+  border: 1px solid grey;
+  border-radius: 7px;
+  padding: 10px;
+  margin: 15px;
+
+  p {
+    background-color: #3425c7;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: 600;
+    margin: 5px;
+  }
+
+  .btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    .btn-single-container {
+      display: grid;
+      justify-items: center;
+      margin-top: 20px;
+      padding: 10px;
+      border-radius: 10px;
+
+      ion-icon {
+        padding: 12px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+        background-color: #3425c75c;
+        color: #3425c7;
+        font-size: 23px;
+      }
+
+      ion-text {
+        color: black;
+      }
+    }
+  }
+}

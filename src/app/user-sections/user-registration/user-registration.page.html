@@ -1,0 +1,53 @@
+<ion-content>
+
+  <div style="padding: 30px;">
+    <form [formGroup]="registerForm" (ngSubmit)="registerSubmit()">
+
+      <h1 style="text-align: center;
+      margin: 20% 0% 20% 0%;
+      font-family: cursive;
+      font-size: 40px;">Create Account</h1>
+
+      <ion-item lines="none" style="--background: rgba(87, 15, 239, 0.1);
+      border-radius: 30px;
+margin-bottom: 20px;">
+        <ion-icon name="mail-outline" slot="start" style="color: #570fef;"></ion-icon>
+        <ion-input placeholder="Name" type="text" formControlName="name" autocapitalize="true"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none" style="--background: rgba(87, 15, 239, 0.1);
+      border-radius: 30px;
+margin-bottom: 20px;">
+        <ion-icon name="mail-outline" slot="start" style="color: #570fef;"></ion-icon>
+        <ion-input placeholder="Mobile Number" type="number" formControlName="phone" autocapitalize="true"></ion-input>
+      </ion-item>
+
+      <div style="text-align: center;">
+        <ion-button shape="round" expand="block" type="submit" style="text-transform: none;
+              --background: #570FEF;
+              --box-shadow: 0px;
+              height: 45px;
+              color: white;
+              font-family: 'Poppins_Black';" [disabled]="this.showLoader">
+          <ion-label *ngIf="!this.showLoader">
+            Register
+          </ion-label>
+          <ion-label *ngIf="this.showLoader">
+            <div style="display: flex; align-items: center">
+              <ion-spinner></ion-spinner>
+              Please Wait ...
+            </div>
+          </ion-label>
+        </ion-button>
+      </div>
+    </form>
+  </div>
+
+  <div style="display: flex; align-items: center; justify-content: center;">
+    <p style="color: #FF8E00; font-size: 15px;">Already have an account?</p>
+    <span style="color: #570FEF;
+    margin-left: 10px;
+    text-decoration: underline;" (click)="this.common.router.navigate(['/user-login'])"> Login </span>
+  </div>
+
+</ion-content>

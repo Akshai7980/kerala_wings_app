@@ -1,0 +1,231 @@
+    <!-- Skeleton screen -->
+  <!-- <div *ngIf="tripDetails.length === 0">
+    <ion-list>
+      <ion-item *ngFor="let s of skeleton" lines="none">
+        <ion-thumbnail slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-thumbnail>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+          </p>
+          <p>
+            <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </div> -->
+  <!-- Skeleton screen -->
+
+
+  <!-- <div *ngIf="hideSkeleton === false">
+    <div style="padding: 10px;
+    margin: 10px;
+    box-shadow: 1px 1px 5px 1px lightgrey;
+    border-radius: 7px;" class="animate__animated animate__fadeIn" *ngFor="let trip of tripDetails;">
+      <div>
+        <h3> <strong> {{ trip?.vehicle_number }} </strong> </h3>
+        <p style="margin: 0px 0px 7px 0px;
+            color: #4660F2;"> {{ trip?.vehicle_name + ' ' + trip?.vehicle }} </p>
+
+        <div style="font-size: 15px;
+  margin-bottom: 7px;">
+          <p style="margin: 0px 5px 0px 0px;">Customer Address: </p>
+          <p style="font-size: 12px;
+      margin-right: 7px; color: #4F4F4F;"> {{ trip?.address }}
+          </p>
+          <p style="font-size: 12px;
+  margin-right: 7px; color: #4F4F4F;"> {{ trip?.customer_number }} </p>
+
+        </div>
+
+        <div style="font-size: 15px;
+  margin-bottom: 7px;">
+          <p style="margin: 0px 5px 0px 0px;"> {{ trip?.customer_name }} </p>
+        </div>
+
+        <div style="font-size: 15px;
+            margin-bottom: 7px;
+            display: flex; align-items: baseline;">
+          <p style="margin: 0px 5px 0px 0px;">From: </p>
+          <span style="font-size: 12px;
+                margin-right: 7px; color: #4F4F4F;"> {{ trip?.location }} </span>
+
+          <p style="margin: 0px 5px 0px 0px;">To: </p>
+          <span style="font-size: 12px;
+                margin-right: 7px; color: #4F4F4F;"> {{ trip?.destination }} </span>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 20px;">
+          <div style="display: flex;
+                align-items: center;">
+            <ion-icon name="calendar-outline" style="color: #4660F2;
+  margin-right: 5px;"></ion-icon>
+            <span style="font-size: 13px; color: #4F4F4F;"> {{ trip?.booking_date | date:'medium' }} </span>
+          </div>
+
+          <div style="display: flex;
+                align-items: center;">
+            <ion-icon name="time-outline" style="color: #4660F2;
+  margin-right: 5px;"></ion-icon>
+            <span style="font-size: 13px; color: #4F4F4F;"> {{ trip?.timepicker }} </span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div> -->
+
+
+  hideSkeleton: boolean;
+
+
+      this.currentTime = new Date().toLocaleTimeString('en-US', {
+      // day: '2-digit',
+      // month: '2-digit',
+      // year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true,
+    });
+    console.log('currentTime:', this.currentTime);
+
+
+            // if (this.tripDetails[0].booking_date === this.currentDay) {
+            //   this.displayDay = 'Today';
+            //   console.log('both same day');
+            // } else if (this.tripDetails[0].booking_date > this.currentDay) {
+            //   this.displayDay = 'Tomorrow';
+            //   console.log('greater day');
+            // } else if (this.tripDetails[0].booking_date < this.currentDay) {
+            //   console.log('smaller day');
+            //   this.displayDay = 'Yesterday';
+            // }
+
+
+              convert(diffDate: Date) {
+    const date = new Date(),
+      month = ('0' + (date.getMonth() + 1)).slice(-2),
+      day = ('0' + date.getDate()).slice(-2);
+    return [date.getFullYear(), month, day].join('-');
+  }
+
+
+    toGetDisplayDay(bookingDate: Date) {
+    console.log('bookingDate:', bookingDate);
+
+    const today = new Date();
+    console.log('today:', today);
+    this.convert(today);
+    console.log(this.convert(today));
+
+    const y = today.setDate(today.getDate() - 1);
+    console.log('yesterday Y:', y);
+
+    const yesterday = new Date(y);
+    console.log('yesterday:', yesterday);
+    this.convert(yesterday);
+    console.log(this.convert(yesterday));
+
+    const t = today.setDate(today.getDate() + 1);
+    console.log('tomorrow T:', t);
+
+    const tomorrow = new Date(t);
+    console.log('tomorrow:', tomorrow);
+    this.convert(tomorrow);
+    console.log(this.convert(tomorrow));
+
+    const bookingDateConver = new Date(bookingDate);
+    console.log('bookingDateToGMT:', bookingDateConver);
+    this.convert(bookingDateConver);
+    console.log(this.convert(bookingDateConver));
+
+    if (bookingDateConver === today) {
+      console.log('Trip is today');
+    } else if (bookingDateConver === yesterday) {
+      console.log('Trip is yesterday');
+    } else if (bookingDateConver === tomorrow) {
+      console.log('Trip is tomorrow');
+    } else {
+      console.log('wrong convertion');
+    }
+  }
+
+            this.currentTime = new Date().toLocaleTimeString('en-US', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true,
+          });
+          this.currentDay = new Date().toLocaleTimeString('en-US', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+          });
+          console.log('currentDay:', this.currentDay);
+
+
+                      // const toastMsg = 'Currently you are having no active trip';
+            // const toastTime = 2000;
+            // this.common.presentToast(toastMsg, toastTime);
+
+
+                    // const toastMsg = 'Something went wrong, please try again later !';
+        // const toastTime = 2000;
+        // this.common.presentToast(toastMsg, toastTime);
+
+
+
+                  const alertHead = 'Attention!';
+          const alertMsg =
+            'You have no trip currently, please check after some time.';
+          this.common.presentAlert(alertHead, alertMsg);
+
+            // this.toConvert12HrsTo24Hrs(this.tripDetails[0]?.timepicker);
+
+            // toConvert12HrsTo24Hrs(time) {
+  //   const convertedTime = moment(time, 'hh:mm A').format('HH:mm:ss');
+  //   const today = new Date();
+  //   const currentTime =
+  //     today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+  //   const todayDate = today.toDateString();
+  //   const bookingDateToGMT = new Date(this.tripDetails[0]?.booking_date);
+  //   const bookingDate = bookingDateToGMT.toDateString();
+  //   if (bookingDate === todayDate) {
+  //     if (currentTime > convertedTime) {
+  //       // return this.canCallClient = false;
+  //     } else {
+  //       // return this.canCallClient = true;
+  //     }
+  //   } else {
+  //     const yesterday = new Date(today);
+  //     yesterday.setDate(yesterday.getDate() - 1);
+  //     if (bookingDateToGMT.toDateString() === yesterday.toDateString()) {
+  //       // return this.canCallClient = false;
+  //     } else {
+  //       // return this.canCallClient = true;
+  //     }
+  //   }
+  // }
+
+    ngOnDestroy() {
+    clearInterval(this.interval);
+  }
+
+  // ionViewDidLoad() {
+  //   console.log('ionViewDidLoad');
+  //   this.getUserDetails();
+  // }
+
+  // ionViewWillEnter() {
+  // }
+
+  // ionViewWillLeave() {
+  //   clearInterval(this.interval);
+  // }

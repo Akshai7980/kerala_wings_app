@@ -1,0 +1,24 @@
+      <!-- <div>
+      <ion-label>Name</ion-label>
+      <ion-input placeholder="Your name" readonly="true" [value]=" userDetails?.first_name ">
+      </ion-input>
+    </div>
+
+    <div>
+      <ion-label>Address</ion-label>
+      <ion-textarea placeholder="Your address" readonly="true" autoGrow="true" rows="4"
+        [value]=" userDetails?.address "></ion-textarea>
+    </div>
+
+    <div>
+      <ion-label>Mobile Number</ion-label>
+      <ion-input placeholder="Your mobile number" readonly="true" [value]=" ' +91 ' + userDetails?.phone_no ">
+      </ion-input>
+    </div>
+
+    <div>
+      <ion-label>Alternate Mobile Number</ion-label>
+      <ion-input placeholder="Your alternate mobile number" readonly="true"
+        [value]=" ' +91 ' + userDetails?.home_mobile ">
+      </ion-input>
+    </div> -->
