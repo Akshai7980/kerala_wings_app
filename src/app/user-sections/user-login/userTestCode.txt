@@ -56,3 +56,45 @@
         <ion-icon slot="end" [name]="showPassword ? 'eye' : 'eye-off'" (click)="showPassword = !showPassword">
         </ion-icon>
       </ion-item>
+
+        onCheckRemember(event: any) {
+    if (this.loginForm.valid) {
+      if (event?.detail?.checked === true) {
+        const msg = "Your Email and Password is stored successfully.";
+        const time = 2000;
+        // this.token
+        //   .setStorage('USER_DETAILS_CHECKED', this.loginForm.value)
+        //   .catch((err) => {
+        //     console.log('Error', err);
+        //     console.log('User Email and Password securely stored in device');
+        //   });
+        this.common.presentToast(msg, time);
+      }
+    } else {
+      const msg = "Please enter valid details and then click checkbox";
+      const time = 2000;
+      this.common.presentToast(msg, time);
+      this.isChecked = false;
+    }
+  }
+
+  fetchCheckedUserDetails() {
+    // this.token.storage
+    //   .get('USER_DETAILS_CHECKED')
+    //   .then((val) => {
+    //     console.log('Value', val);
+    //     this.loginForm.value.userName = val?.userName;
+    //     this.loginForm.value.password = val?.password;
+    //     if (!val) {
+    //       console.log('No User Details Stored');
+    //     } else {
+    //       const msg =
+    //         'We found your stored Email and Password, would you like to continue with that';
+    //       const time = 2000;
+    //       this.common.presentToast(msg, time);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log('Error:', err);
+    //   });
+  }

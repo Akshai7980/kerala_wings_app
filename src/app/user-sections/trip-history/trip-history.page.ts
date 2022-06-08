@@ -35,13 +35,17 @@ export class TripHistoryPage implements OnInit {
       customer_number: mobileNumber,
     };
     console.log('params:', params);
-    this.api.post('list_all_booking_taxi_closed', params).then(
+    this.api.postApiCall('list_all_booking_taxi_closed', params).subscribe(
       (res: any) => {
-        const responseData = JSON.parse(res.data);
-        console.log('responseData:', responseData);
-        if (responseData.status === true) {
-          this.closedTrip = responseData.all_taxibooking;
-          console.log('closedTrip:', this.closedTrip);
+        console.log("res:", res);
+        if (res.status === true) {
+          const allTaxiBooking = res.all_taxibooking;
+          for (let i = 0; i < allTaxiBooking.length; i++) {
+            if (allTaxiBooking[i].trip_status === 2) {
+              this.closedTrip.push(allTaxiBooking[i]);
+            }
+          }
+          console.log("closedTrip:", this.closedTrip);
         } else {
           console.log('false');
         }
@@ -60,13 +64,17 @@ export class TripHistoryPage implements OnInit {
       customer_number: mobileNumber,
     };
     console.log('params:', params);
-    this.api.post('list_all_booking_closed', params).then(
+    this.api.postApiCall('list_all_booking_closed', params).subscribe(
       (res: any) => {
-        const responseData = JSON.parse(res.data);
-        console.log('responseData:', responseData);
-        if (responseData.status === true) {
-          this.closedDriver = responseData.all_driverbooking;
-          console.log('closedDriver:', this.closedDriver);
+        console.log("res:", res);
+        if (res.status === true) {
+          const allDriverBooking = res.all_driverbooking;
+          for (let i = 0; i < allDriverBooking.length; i++) {
+            if (allDriverBooking[i].trip_status === 2) {
+              this.closedDriver.push(allDriverBooking[i]);
+            }
+          }
+          console.log("closedDriver:", this.closedDriver);
         } else {
           console.log('false');
         }

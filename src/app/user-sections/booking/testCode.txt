@@ -134,3 +134,11 @@
     //   Validators.maxLength(1),
     //   Validators.minLength(1),
     // ]),
+
+    const date =
+      today.getFullYear() +
+      "-" +
+      "0" +
+      (today.getMonth() + 1) +
+      "-" +
+      today.getDate();

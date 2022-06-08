@@ -1,0 +1,36 @@
+    <!-- <ion-icon name="log-out"></ion-icon> -->
+
+    <!-- <ion-chip style="--background: #3425c75c;" (click)="callTripClient()">
+      <ion-icon name="call" style="color: #3425c7;"></ion-icon>
+      <ion-label style="font-weight: 600;">Contact Office</ion-label>
+    </ion-chip> -->
+
+  <!-- <div class="header-search-container">
+    <ion-searchbar placeholder="search places"></ion-searchbar>
+  </div> -->
+
+    <!-- <div class="trip-details-main-container , animate__animated animate__fadeIn"
+    *ngIf="activeTrip.length === 0 && activeDriver.length === 0">
+    <h1 style="text-align: center;
+    margin: 7% 0% 7% 0%;
+    font-family: cursive;
+    font-size: 40px;
+    color: white;
+    font-weight: 600;">You are not having any active trip or booked driver.</h1>
+    <div style="text-align: center; margin-bottom: 5%;">
+      <ion-button fill="outline" shape="round" (click)="gotoPage('/booking', '')">
+        Book Driver / Book Cab
+      </ion-button>
+    </div>
+  </div> -->
+
+          <!-- <div class="btn-single-container" (click)="gotoPage('/booking')">
+          <ion-icon name="car"></ion-icon>
+          <ion-text>Cab / Driver</ion-text>
+          <ion-text>Booking</ion-text>
+        </div> -->
+
+                <!-- <div class="btn-single-container" (click)="gotoPage('/user-settings')">
+          <ion-icon name="settings"></ion-icon>
+          <ion-text>Settings</ion-text>
+        </div> -->

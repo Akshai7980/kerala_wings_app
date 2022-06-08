@@ -1,3 +1,5 @@
-/www
-/plugins
-/platforms
+www
+plugins
+platforms
+node_modules
+.angular

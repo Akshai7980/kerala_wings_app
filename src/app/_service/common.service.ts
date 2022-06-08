@@ -44,6 +44,7 @@ export class CommonService {
     const { role } = await alert.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+
   // ----- App's Alert Controller -----
 
   // ----- App's Toast Controller -----
@@ -77,7 +78,9 @@ export class CommonService {
   simpleLoader(msg) {
     this.loadingCtrl
       .create({
+        spinner: 'crescent',
         message: msg,
+        cssClass: 'custom-loading'
       })
       .then((response) => {
         response.present();

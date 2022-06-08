@@ -6,7 +6,6 @@
       </ion-avatar>
       <ion-text>Hai, {{ userDetails?.customer_name | titlecase }} </ion-text>
     </div>
-    <!-- <ion-icon name="log-out"></ion-icon> -->
   </div>
 
   <div class="header-text-container">
@@ -15,46 +14,171 @@
   </div>
 
   <div class="header-search-container">
-    <ion-chip style="--background: #3425c75c;" (click)="gotoPage('/booking', 'driver')">
-      <ion-icon name="man" style="color: #3425c7;"></ion-icon>
-      <ion-label>Book Driver</ion-label>
+    <ion-chip style="--background: #3425c75c" (click)="gotoPage('/booking', 'driver')">
+      <ion-icon name="man" style="color: #3425c7"></ion-icon>
+      <ion-label style="font-weight: 600">Book Driver</ion-label>
     </ion-chip>
 
-    <ion-chip style="--background: #3425c75c;" (click)="gotoPage('/booking', 'cab')">
-      <ion-icon name="car" style="color: #3425c7;"></ion-icon>
-      <ion-label>Book Cab</ion-label>
+    <ion-chip style="--background: #3425c75c" (click)="gotoPage('/booking', 'cab')">
+      <ion-icon name="car" style="color: #3425c7"></ion-icon>
+      <ion-label style="font-weight: 600">Book Cab</ion-label>
     </ion-chip>
 
-    <ion-chip style="--background: #3425c75c;" (click)="callTripClient()">
-      <ion-icon name="call" style="color: #3425c7;"></ion-icon>
-      <ion-label>Contact Office</ion-label>
+    <ion-chip style="--background: #3425c75c">
+      <ion-icon name="sparkles" style="color: #3425c7"></ion-icon>
+      <ion-label style="font-weight: 600">Wedding Cars</ion-label>
     </ion-chip>
-
   </div>
-
-  <!-- <div class="header-search-container">
-    <ion-searchbar placeholder="search places"></ion-searchbar>
-  </div> -->
 </ion-header>
 
 <ion-content>
+  <div *ngIf="allBooking.length !== 0" class="animate__animated animate__fadeIn">
+    <div class="trip-details-main-container" *ngFor="let trip of allBooking ">
+      <div class="booked-ride-text">
+        <div>
+          <h6>{{ trip?.updated_at | date:'mediumDate' }}</h6>
+        </div>
+        <div>
+          <ion-chip style="--background: white">
+            <ion-icon name="man" style="color: black"></ion-icon>
+            <ion-label style="color: black">Booked Driver</ion-label>
+          </ion-chip>
+        </div>
+      </div>
 
-  <div class="trip-details-main-container , animate__animated animate__fadeIn"
-    *ngIf="activeTrip.length === 0 && activeDriver.length === 0">
-    <h1 style="text-align: center;
-    margin: 7% 0% 7% 0%;
-    font-family: cursive;
-    font-size: 40px;
-    color: white;
-    font-weight: 600;">You are not having any active trip or booked driver.</h1>
-    <div style="text-align: center; margin-bottom: 5%;">
-      <ion-button fill="outline" shape="round" (click)="gotoPage('/booking', '')">
-        Book Driver / Book Cab
-      </ion-button>
+      <div class="trip-details-container">
+        <div>
+          <h6>{{ trip?.booking_date }}</h6>
+          <h6>{{ trip?.timepicker }}</h6>
+        </div>
+        <div style="width: 40%;">
+          <h6>Location</h6>
+          <p>{{ trip?.address }}</p>
+          <p>{{ trip?.location }}</p>
+          <h6>Destination</h6>
+          <p>{{ trip?.destination }}</p>
+        </div>
+      </div>
+
+      <div style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 20px;
+        ">
+        <ion-button fill="outline" shape="round" (click)="gotoPage('/ongoing-trip', 'details')">
+          View Details
+        </ion-button>
+
+        <ion-button shape="round" style="--box-shadow: none; --background: orange; --color: black"
+          (click)="toCancelTrip(trip, 'DRIVER')">
+          Cancel Booking
+        </ion-button>
+      </div>
+
+      <div style="margin-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;">
+        <!-- <ion-chip style="--border: #aa7cff" outline color="light">
+          <ion-icon name="car-sport-outline"></ion-icon>
+          <ion-label> {{ trip?.no_day }} Days Trip</ion-label>
+        </ion-chip> -->
+
+        <ion-chip style="--border: #aa7cff" outline color="light">
+          <ion-icon name="ellipse"></ion-icon>
+          <ion-label *ngIf="trip?.trip_driver === null ">
+            Driver not assigned
+          </ion-label>
+          <ion-label *ngIf="trip?.trip_driver !== null ">
+            Driver assigned {{ trip?.trip_driver }}
+          </ion-label>
+        </ion-chip>
+
+        <ion-chip style="--border: #aa7cff" outline color="light">
+          <ion-icon name="ellipse"></ion-icon>
+          <ion-label *ngIf="trip?.trip_status === 0 ">Your trip is in pending</ion-label>
+          <ion-label *ngIf="trip?.trip_status === 1 ">Your trip is active</ion-label>
+          <ion-label *ngIf="trip?.trip_status === 2 ">Your trip completed</ion-label>
+        </ion-chip>
+      </div>
     </div>
   </div>
 
-  <div *ngIf="activeTrip.length !== 0">
+  <div *ngIf="allBookingTaxi.length !== 0" class="animate__animated animate__fadeIn">
+    <div class="trip-details-main-container" *ngFor="let trip of allBookingTaxi ">
+      <div class="booked-ride-text">
+        <div>
+          <h6>{{ trip?.updated_at | date:'mediumDate' }}</h6>
+        </div>
+        <div>
+          <ion-chip style="--background: #FACA30">
+            <ion-icon name="car" style="color: black"></ion-icon>
+            <ion-label style="color: black">Booked Cab</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+
+      <div class="trip-details-container">
+        <div>
+          <h6>{{ trip?.booking_date }}</h6>
+          <h6>{{ trip?.timepicker }}</h6>
+        </div>
+        <div style="width: 40%;">
+          <h6>Location</h6>
+          <p>{{ trip?.address }}</p>
+          <p>{{ trip?.location }}</p>
+          <h6>Destination</h6>
+          <p>{{ trip?.destination }}</p>
+        </div>
+      </div>
+
+      <div style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 20px;
+        ">
+        <ion-button fill="outline" shape="round" (click)="gotoPage('/ongoing-trip', 'details')">
+          View Details
+        </ion-button>
+
+        <ion-button shape="round" style="--box-shadow: none; --background: orange; --color: black"
+          (click)="toCancelTrip(trip, 'CAB')">
+          Cancel Booking
+        </ion-button>
+      </div>
+
+      <div style="margin-top: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;">
+        <ion-chip style="--border: #aa7cff" outline color="light">
+          <ion-icon name="car-sport-outline"></ion-icon>
+          <ion-label> {{ trip?.no_day }} Days Trip</ion-label>
+        </ion-chip>
+
+        <ion-chip style="--border: #aa7cff" outline color="light">
+          <ion-icon name="car-sport-outline"></ion-icon>
+          <ion-label *ngIf="trip?.trip_driver === null ">
+            Driver not assigned
+          </ion-label>
+          <ion-label *ngIf="trip?.trip_driver !== null ">
+            Driver assigned {{ trip?.trip_driver }}
+          </ion-label>
+        </ion-chip>
+
+        <ion-chip style="--border: #aa7cff" outline color="light">
+          <ion-icon name="car-sport-outline"></ion-icon>
+          <ion-label *ngIf="trip?.trip_status === 0 ">Your trip is in pending</ion-label>
+          <ion-label *ngIf="trip?.trip_status === 1 ">Your trip is active</ion-label>
+          <ion-label *ngIf="trip?.trip_status === 2 ">Your trip completed</ion-label>
+        </ion-chip>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div *ngIf="activeTrip.length !== 0">
     <div class="trip-details-main-container" *ngFor="let trip of activeTrip ">
       <div class="booked-ride-text">
         <div>
@@ -82,15 +206,17 @@
         </div>
       </div>
 
-      <div>
+      <div style="display: flex">
         <ion-button fill="outline" shape="round" (click)="gotoPage('/ongoing-trip', '')">
           View Details
         </ion-button>
+
+        <ion-button fill="outline" shape="round"> Cancel Trip </ion-button>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <div *ngIf="activeDriver.length !== 0">
+  <!-- <div *ngIf="activeDriver.length !== 0">
     <div class="trip-details-main-container" *ngFor="let trip of activeDriver ">
       <div class="booked-ride-text">
         <div>
@@ -118,28 +244,22 @@
         </div>
       </div>
 
-      <div>
+      <div style="display: flex">
         <ion-button fill="outline" shape="round" (click)="gotoPage('/ongoing-trip', '')">
           View Details
         </ion-button>
+
+        <ion-button fill="outline" shape="round"> Cancel Trip </ion-button>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div>
     <div class="section-container">
-      <p>
-        Booking
-      </p>
+      <p>Booking</p>
 
       <div class="btn-container">
-        <!-- <div class="btn-single-container" (click)="gotoPage('/booking')">
-          <ion-icon name="car"></ion-icon>
-          <ion-text>Cab / Driver</ion-text>
-          <ion-text>Booking</ion-text>
-        </div> -->
-
-        <div class="btn-single-container" (click)="gotoPage('/ongoing-trip', '')">
+        <div class="btn-single-container" (click)="gotoPage('/ongoing-trip', 'ongoing')">
           <ion-icon name="location"></ion-icon>
           <ion-text>Ongoing</ion-text>
           <ion-text>Trip</ion-text>
@@ -160,25 +280,18 @@
     </div>
 
     <div class="section-container">
-      <p>
-        Personal
-      </p>
+      <p>Personal</p>
 
       <div class="btn-container">
-        <div class="btn-single-container" (click)="gotoPage('/user-profile', '')">
+        <div class="btn-single-container" (click)="gotoPage('/ongoing-trip', 'details')">
           <ion-icon name="wallet"></ion-icon>
-          <ion-text>Payment</ion-text>
+          <ion-text>Trip Details</ion-text>
         </div>
 
         <div class="btn-single-container" (click)="gotoPage('/user-settings', '')">
           <ion-icon name="settings"></ion-icon>
           <ion-text>Tariff</ion-text>
         </div>
-
-        <!-- <div class="btn-single-container" (click)="gotoPage('/user-settings')">
-          <ion-icon name="settings"></ion-icon>
-          <ion-text>Settings</ion-text>
-        </div> -->
 
         <div class="btn-single-container" (click)="presentLogoutModal()">
           <ion-icon name="log-out"></ion-icon>
@@ -188,9 +301,7 @@
     </div>
 
     <div class="section-container">
-      <p>
-        Owner
-      </p>
+      <p>Owner</p>
 
       <div class="btn-container">
         <div class="btn-single-container" (click)="gotoPage('/about-us', '')">
@@ -203,7 +314,6 @@
           <ion-icon name="call"></ion-icon>
           <ion-text>Contact</ion-text>
           <ion-text>Us</ion-text>
-
         </div>
 
         <div class="btn-single-container" (click)="gotoPage('/user-terms-and-condition', '')">
@@ -215,9 +325,7 @@
     </div>
 
     <div class="section-container">
-      <p>
-        Social
-      </p>
+      <p>Social</p>
 
       <div class="btn-container">
         <div class="btn-single-container" (click)="socialSection('mail')">

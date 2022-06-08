@@ -22,3 +22,43 @@
         [value]=" ' +91 ' + userDetails?.home_mobile ">
       </ion-input>
     </div> -->
+
+        // email: new FormControl(undefined),
+    // vehicletransmission: new FormControl(undefined),
+    // gender: new FormControl(undefined),
+            // vehicletransmission: this.userProfileForm.value.vehicletransmission,
+        // gender: this.userProfileForm.value.gender,
+        // cabType: this.userProfileForm.value.cabType,
+
+              <!-- <ion-item lines="none">
+        <ion-label position="floating">Email</ion-label>
+        <ion-input
+          formControlName="email"
+          type="email"
+          autocapitalize="true"
+        ></ion-input>
+      </ion-item> -->
+
+            <!-- <ion-list
+        style="
+          border: 2px solid #3425c7 !important;
+          border-radius: 7px;
+          margin-bottom: 15px;
+        "
+      >
+        <ion-radio-group value="biff">
+          <ion-list-header>
+            <ion-label style="font-size: 17px">Gender</ion-label>
+          </ion-list-header>
+
+          <ion-item lines="none" style="border: 2px solid white !important">
+            <ion-label>Male</ion-label>
+            <ion-radio slot="start" value="male"></ion-radio>
+          </ion-item>
+
+          <ion-item lines="none" style="border: 2px solid white !important">
+            <ion-label>Female</ion-label>
+            <ion-radio slot="start" value="female"></ion-radio>
+          </ion-item>
+        </ion-radio-group>
+      </ion-list> -->

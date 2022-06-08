@@ -1,0 +1,47 @@
+.main-container {
+    padding: 30px;
+    h1 {
+        text-align: center;
+        margin: 0% 0% 5% 0%;
+        font-family: cursive;
+        font-size: 40px;
+    }
+    ion-item {
+        --background: rgba(87, 15, 239, 0.1);
+        border-radius: 30px;
+        margin-bottom: 20px;
+        ion-icon {
+            color: #3425c7;
+        }
+    }
+    .button-container {
+        text-align: center;
+        ion-button {
+            text-transform: none;
+            --background: #3425c7;
+            --box-shadow: 0px;
+            height: 45px;
+            color: white;
+            font-family: "Poppins_Black";
+            .spinner-container {
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+}
+
+.bottom-text-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    p {
+        color: #ff8e00;
+        font-size: 15px;
+    }
+    span {
+        color: #570fef;
+        margin-left: 10px;
+        text-decoration: underline;
+    }
+}

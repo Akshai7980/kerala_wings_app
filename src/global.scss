@@ -51,6 +51,12 @@ ion-title {
   --border-radius: 10px;
 }
 
+.register-modal {
+  --width: 90%;
+  --height: 90%;
+  --border-radius: 10px;
+}
+
 .approve-modal {
   --width: 90%;
   --height: 90%;
@@ -81,6 +87,18 @@ ion-searchbar {
         border-radius: 30px;
         height: 35px;
       }
+  }
+}
+
+ion-loading.custom-loading {
+  .loading-wrapper {
+    background: transparent;
+    box-shadow: none;
+    .sc-ion-loading-md {
+      height: 90px;
+      width: 90px;
+      color: #3425c7;
+    }
   }
 }
 

@@ -7,8 +7,8 @@
     <form [formGroup]="loginForm" (ngSubmit)="loginSubmit()">
 
       <ion-item lines="none">
-        <ion-icon name="call-outline" slot="start"></ion-icon>
-        <ion-input placeholder="Registered Mobile Number" type="number" formControlName="mobile"></ion-input>
+        <ion-icon name="phone-portrait-outline" slot="start"></ion-icon>
+        <ion-input placeholder="Mobile Number" type="number" formControlName="mobile"></ion-input>
       </ion-item>
 
       <div class="button-container">
@@ -18,7 +18,7 @@
           </ion-label>
           <ion-label *ngIf="this.showLoader">
             <div class="button-text-container">
-              <ion-spinner></ion-spinner>
+              <ion-spinner name="crescent"></ion-spinner>
               Please Wait ...
             </div>
           </ion-label>
@@ -60,9 +60,9 @@
   </form>
   <!-- Form to enter OTP number -->
 
-  <div class="create-account-container">
+  <!-- <div class="create-account-container">
     <p>Don't you have an account?</p>
     <span (click)="this.common.router.navigate(['/user-registration'])"> Register </span>
-  </div>
+  </div> -->
 
 </ion-content>
