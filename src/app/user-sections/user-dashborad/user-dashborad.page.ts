@@ -52,6 +52,13 @@ export class UserDashboradPage implements OnInit {
       }
     }, 3000);
     // this.getUserDetails();
+    this.getCalculateDays();
+  }
+
+  getCalculateDays() {
+    const date = new Date();
+    date.setDate(date.getDate() + 2);
+    console.log(date);
   }
 
   ionViewWillEnter() {
@@ -173,12 +180,14 @@ export class UserDashboradPage implements OnInit {
     );
   }
 
-  gotoPage(page: string, type: string) {
+  gotoPage(page: string, type: string, trip: any) {
     const p = page;
+    console.log('trip:',trip);
     const navigationExtras: NavigationExtras = {
       state: {
         userInfo: this.userDetails,
         clickedType: type,
+        tripDetails: trip
       },
     };
     this.common.router.navigate([p], navigationExtras);

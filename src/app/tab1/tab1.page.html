@@ -57,14 +57,14 @@
         <p>
           Contact the customer right now to confirm
         </p>
-        <ion-button style="--background: green; text-transform: uppercase;" (click)="callTripClient()">call
+        <ion-button style="--background: green; text-transform: uppercase;" (click)="callTripClient(trip)">call
           <ion-icon name="call" style="color: white;  margin-left: 7px;"></ion-icon>
         </ion-button>
       </div>
 
       <div *ngIf="trip?.driver_view_status === 2" style="padding: 10px; margin-top: 15px;">
         <ion-button expand="block"
-          style="--background: red; text-transform: uppercase; height: 45px; font-weight: 600;" (click)="closeTripModal()">Close
+          style="--background: red; text-transform: uppercase; height: 45px; font-weight: 600;" (click)="closeTripModal(trip)">Close
           Trip
         </ion-button>
       </div>

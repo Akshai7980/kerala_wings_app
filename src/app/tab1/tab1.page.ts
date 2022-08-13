@@ -87,6 +87,7 @@ export class Tab1Page implements OnInit {
   }
 
   updateTripSeenStatus(tripId: any) {
+    console.log('tripId:',tripId);
     const toastMsg =
       ' ⏳ Please wait while we are updating your trip view status. ';
     const toastTime = 5000;
@@ -158,21 +159,23 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  callTripClient() {
+  callTripClient(tripDetails: any) {
+    console.log('tripDetails:',tripDetails);
     this.callNumber
-      .callNumber(this.tripDetails[0].customer_number, true)
+      .callNumber(tripDetails?.customer_number, true)
       .then((res) => console.log('Launched dialer!', res))
       .catch((err) => console.log('Error launching dialer', err));
   }
 
   // To show trip amount inserting modal
-  async closeTripModal() {
+  async closeTripModal(tripDetails: any) {
+    console.log('tripDetails:',tripDetails);
     const modal = await this.common.modalCtrl.create({
       component: TripClosingPage,
       cssClass: 'close-trip-modal',
       componentProps: {
-        driverId: this.tripDetails[0].driver_id,
-        tripId: this.tripDetails[0].id,
+        driverId: tripDetails?.driver_id,
+        tripId: tripDetails?.id,
       },
     });
     return await modal.present();
@@ -180,6 +183,7 @@ export class Tab1Page implements OnInit {
 
   // To start assigned trip
   toStartTrip(tripId: any) {
+    console.log('tripId:',tripId);
     const params = {
       trip_id: tripId,
       driver_view_status: '2', // status no: 2 is used to start trip

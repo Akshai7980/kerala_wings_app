@@ -18,6 +18,11 @@ import { AudioManagement } from '@ionic-native/audio-management/ngx';
 import { NativeAudio } from '@awesome-cordova-plugins/native-audio/ngx';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
 import { BackgroundMode } from '@awesome-cordova-plugins/background-mode/ngx';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
+import { StatusBar } from '@awesome-cordova-plugins/status-bar/ngx';
+import { Network } from '@awesome-cordova-plugins/network/ngx';
+import { LocalNotifications } from '@awesome-cordova-plugins/local-notifications/ngx';
+
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -34,6 +39,7 @@ import { BackgroundMode } from '@awesome-cordova-plugins/background-mode/ngx';
   providers: [
     HTTP,
     SplashScreen,
+    StatusBar,
     CallNumber,
     FormBuilder,
     Vibration,
@@ -41,6 +47,9 @@ import { BackgroundMode } from '@awesome-cordova-plugins/background-mode/ngx';
     NativeAudio,
     BackgroundMode,
     FCM,
+    SQLite,
+    Network,
+    LocalNotifications,
     { provide: RouteReuseStrategy,
     useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

@@ -6,6 +6,10 @@
       </ion-avatar>
       <ion-text>Hai, {{ userDetails?.customer_name | titlecase }} </ion-text>
     </div>
+    <div style="display: grid; justify-items: center;" (click)="presentLogoutModal()">
+      <ion-icon name="log-out"></ion-icon>
+      <ion-note>Logout</ion-note>
+    </div>
   </div>
 
   <div class="header-text-container">
@@ -14,12 +18,12 @@
   </div>
 
   <div class="header-search-container">
-    <ion-chip style="--background: #3425c75c" (click)="gotoPage('/booking', 'driver')">
+    <ion-chip style="--background: #3425c75c" (click)="gotoPage('/booking', 'driver', '')">
       <ion-icon name="man" style="color: #3425c7"></ion-icon>
       <ion-label style="font-weight: 600">Book Driver</ion-label>
     </ion-chip>
 
-    <ion-chip style="--background: #3425c75c" (click)="gotoPage('/booking', 'cab')">
+    <ion-chip style="--background: #3425c75c" (click)="gotoPage('/booking', 'cab', '')">
       <ion-icon name="car" style="color: #3425c7"></ion-icon>
       <ion-label style="font-weight: 600">Book Cab</ion-label>
     </ion-chip>
@@ -66,7 +70,7 @@
           justify-content: space-between;
           margin-top: 20px;
         ">
-        <ion-button fill="outline" shape="round" (click)="gotoPage('/ongoing-trip', 'details')">
+        <ion-button fill="outline" shape="round" (click)="gotoPage('/ongoing-trip', 'details', trip)">
           View Details
         </ion-button>
 
@@ -139,7 +143,7 @@
           justify-content: space-between;
           margin-top: 20px;
         ">
-        <ion-button fill="outline" shape="round" (click)="gotoPage('/ongoing-trip', 'details')">
+        <ion-button fill="outline" shape="round" (click)="gotoPage('/ongoing-trip', 'details', '')">
           View Details
         </ion-button>
 
@@ -259,19 +263,19 @@
       <p>Booking</p>
 
       <div class="btn-container">
-        <div class="btn-single-container" (click)="gotoPage('/ongoing-trip', 'ongoing')">
+        <div class="btn-single-container" (click)="gotoPage('/ongoing-trip', 'ongoing', '')">
           <ion-icon name="location"></ion-icon>
           <ion-text>Ongoing</ion-text>
           <ion-text>Trip</ion-text>
         </div>
 
-        <div class="btn-single-container" (click)="gotoPage('/trip-history', '')">
+        <div class="btn-single-container" (click)="gotoPage('/trip-history', '', '')">
           <ion-icon name="time"></ion-icon>
           <ion-text>Trip</ion-text>
           <ion-text>History</ion-text>
         </div>
 
-        <div class="btn-single-container" (click)="gotoPage('/user-profile', '')">
+        <div class="btn-single-container" (click)="gotoPage('/user-profile', '', '')">
           <ion-icon name="person-circle"></ion-icon>
           <ion-text>Your</ion-text>
           <ion-text>Profile</ion-text>
@@ -283,19 +287,19 @@
       <p>Personal</p>
 
       <div class="btn-container">
-        <div class="btn-single-container" (click)="gotoPage('/ongoing-trip', 'details')">
+        <!-- <div class="btn-single-container" (click)="gotoPage('/ongoing-trip', 'details', '0')">
           <ion-icon name="wallet"></ion-icon>
           <ion-text>Trip Details</ion-text>
-        </div>
+        </div> -->
 
-        <div class="btn-single-container" (click)="gotoPage('/user-settings', '')">
+        <div class="btn-single-container" (click)="gotoPage('/user-settings', '', '')">
           <ion-icon name="settings"></ion-icon>
           <ion-text>Tariff</ion-text>
         </div>
 
         <div class="btn-single-container" (click)="presentLogoutModal()">
           <ion-icon name="log-out"></ion-icon>
-          <ion-text>Sign Out</ion-text>
+          <ion-text>LogOut</ion-text>
         </div>
       </div>
     </div>
@@ -304,19 +308,19 @@
       <p>Owner</p>
 
       <div class="btn-container">
-        <div class="btn-single-container" (click)="gotoPage('/about-us', '')">
+        <div class="btn-single-container" (click)="gotoPage('/about-us', '', '')">
           <ion-icon name="information-circle"></ion-icon>
           <ion-text>About</ion-text>
           <ion-text>Us</ion-text>
         </div>
 
-        <div class="btn-single-container" (click)="gotoPage('/contact-us', '')">
+        <div class="btn-single-container" (click)="gotoPage('/contact-us', '', '')">
           <ion-icon name="call"></ion-icon>
           <ion-text>Contact</ion-text>
           <ion-text>Us</ion-text>
         </div>
 
-        <div class="btn-single-container" (click)="gotoPage('/user-terms-and-condition', '')">
+        <div class="btn-single-container" (click)="gotoPage('/user-terms-and-condition', '', '')">
           <ion-icon name="reader"></ion-icon>
           <ion-text>Terms &</ion-text>
           <ion-text>Conditions</ion-text>

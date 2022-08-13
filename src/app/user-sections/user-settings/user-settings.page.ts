@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-user-settings',
@@ -8,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 export class UserSettingsPage implements OnInit {
   settings: any = [];
 
-  constructor() { }
+  constructor(
+    public plt: Platform
+  ) { }
 
   ngOnInit() {
     this.settings.length = 10;

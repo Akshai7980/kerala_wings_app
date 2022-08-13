@@ -1,9 +1,32 @@
+ion-toolbar {
+  --background: white;
+   ion-back-button {
+    color: black;
+    ion-title {
+      color: black;
+    }
+  }
+}
+
 // Trip details container styles
 .trip-details-main-container {
   background-color: #3425c7;
   padding: 15px;
   margin: 15px;
   border-radius: 15px;
+
+  h1 {
+    text-align: center;
+    margin: 15% 0% 10% 0%;
+    font-family: cursive;
+    font-size: 40px;
+    color: white;
+    font-weight: 600;
+  }
+
+  .button-container {
+    text-align: center; margin-bottom: 10%;
+  }
 
   .booked-ride-text {
     display: flex;

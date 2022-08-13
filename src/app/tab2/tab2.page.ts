@@ -1,27 +1,30 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable quote-props */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { EditProfilePage } from '../_modal/edit-profile/edit-profile.page';
-import { CommonService } from '../_service/common.service';
-import { StorageService } from '../_service/storage.service';
-import { IonSlides } from '@ionic/angular';
-import Swiper, { Navigation, Pagination } from 'swiper';
-import { NavigationExtras } from '@angular/router';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { EditProfilePage } from "../_modal/edit-profile/edit-profile.page";
+import { CommonService } from "../_service/common.service";
+import { StorageService } from "../_service/storage.service";
+import { IonSlides, Platform } from "@ionic/angular";
+import Swiper, { Navigation, Pagination } from "swiper";
+import { NavigationExtras } from "@angular/router";
 // import 'swiper/css';
-import { Vibration } from '@awesome-cordova-plugins/vibration/ngx';
-import { AudioManagement } from '@ionic-native/audio-management/ngx';
-import { NativeAudio } from '@awesome-cordova-plugins/native-audio/ngx';
-import { AlertController } from '@ionic/angular';
-import { ApiService } from '../_service/api.service';
-import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+import { Vibration } from "@awesome-cordova-plugins/vibration/ngx";
+import { AudioManagement } from "@ionic-native/audio-management/ngx";
+import { NativeAudio } from "@awesome-cordova-plugins/native-audio/ngx";
+import { AlertController } from "@ionic/angular";
+import { ApiService } from "../_service/api.service";
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
+// import { BackgroundMode } from "@awesome-cordova-plugins/background-mode/ngx";
+import { LocalNotifications } from "@awesome-cordova-plugins/local-notifications/ngx";
+
 @Component({
-  selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss'],
+  selector: "app-tab2",
+  templateUrl: "tab2.page.html",
+  styleUrls: ["tab2.page.scss"],
 })
 export class Tab2Page implements OnInit {
-  @ViewChild('slideWithNav', { static: false }) slideWithNav: IonSlides;
+  @ViewChild("slideWithNav", { static: false }) slideWithNav: IonSlides;
 
   userDetails: any = [];
   sliderImages: any = [];
@@ -37,84 +40,152 @@ export class Tab2Page implements OnInit {
     private audio: AudioManagement,
     private vibration: Vibration,
     private alert: AlertController,
+    // private backgroundMode: BackgroundMode,
+    private localNotifications: LocalNotifications,
     private api: ApiService,
+    private plt: Platform,
     private fcm: FCM
   ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    const notificationPermission = this.localNotifications.hasPermission();
+    console.log("hasPermission:", notificationPermission);
+    if ((await notificationPermission) === true) {
+      console.log("has permission");
+    } else {
+      console.log("no permission");
+      this.localNotifications.requestPermission().then((permission) => {
+        console.log("requestPermission:", permission);
+      });
+    }
     this.setRingtone();
+    if (this.common.platform.is("cordova")) {
+      this.subscribePushNotification();
+      // this.backgroundMode.enable();
+      // this.simpleNotif();
+    } else {
+      console.log("web");
+    }
     this.sliderImages = {
       isBeginningSlide: true,
       isEndSlide: false,
       slidesItems: [
         {
-          Image: '../../assets/images/trip1.jpeg',
+          Image: "../../assets/images/trip1.jpeg",
         },
         {
-          Image: '../../assets/images/trip2.jpeg',
+          Image: "../../assets/images/trip2.jpeg",
         },
         {
-          Image: '../../assets/images/trip3.jpeg',
+          Image: "../../assets/images/trip3.jpeg",
         },
         {
-          Image: '../../assets/images/trip4.jpeg',
+          Image: "../../assets/images/trip4.jpeg",
         },
         {
-          Image: '../../assets/images/trip5.jpeg',
+          Image: "../../assets/images/trip5.jpeg",
         },
         {
-          Image: '../../assets/images/trip6.webp',
+          Image: "../../assets/images/trip6.webp",
         },
       ],
     };
-    if (this.common.platform.is('cordova')) {
-      this.subscribePushNotification();
-    } else {
-      console.log('web');
-    }
   }
 
   subscribePushNotification() {
     this.fcm.onNotification().subscribe(
       (data) => {
-        console.log('data:',data);
+        // this.backgroundMode.isScreenOff(function (bool) {
+        //   console.log("isScreenOff:", bool);
+        //   if (bool === true) {
+        //     this.backgroundMode.wakeUp();
+        //     this.backgroundMode.unlock();
+        //     this.backgroundMode.moveToForeground();
+        //   }
+        //   //   else {
+        //   //   this.backgroundMode.moveToForeground();
+        //   //  }
+        // });
+        console.log("data:", data);
+        // this.simpleNotif();
         if (data.wasTapped) {
-          this.loopMode = 'loop';
+          this.localNotifications.update({
+            id: 1,
+            text: this.userDetails.first_name + ", you have an active trip.",
+            sound: this.plt.is("android")
+              ? "file://assets/tune-android/Antique-Phone.mp3"
+              : "file://beep.caf",
+          });
+          this.loopMode = "loop";
           this.createAlert();
-          console.log('Notification Received in background');
+          console.log("Notification Received in background");
         } else {
-          this.loopMode = 'once';
+          this.loopMode = "once";
           this.createAlert();
-          console.log('Notification Received in foreground');
+          console.log("Notification Received in foreground");
         }
       },
       (err) => {
-        console.log('Error:', err);
+        console.log("Error:", err);
       }
     );
 
     this.fcm.onTokenRefresh().subscribe(
       (token) => {
-        console.log('token:', token);
+        console.log("token:", token);
       },
       (err) => {
-        console.log('Error:', err);
+        console.log("Error:", err);
       }
     );
+  }
+
+  simpleNotif() {
+    this.localNotifications.schedule({
+      // id: 1,
+      title: "Kerala Wings App",
+      text:
+        "Hai... " +
+        this.userDetails.first_name +
+        "we keeps you updated for active trips...",
+      sound: this.plt.is("android") ? "file://assets/tune-android/Antique-Phone.mp3" : "file://beep.caf",
+      // smallIcon: 'res://icon/favicon.png',
+      // sound: this.plt.is("android")
+      //   ? "../../assets/tune-android/Antique-Phone.mp3"
+      //   : "../../assets/tune-ios/high.m4r",
+      // data: { secret: 'secret' },
+      // icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzfXKe6Yfjr6rCtR6cMPJB8CqMAYWECDtDqH-eMnerHHuXv9egrw",
+      // group: 'trip',
+      // sticky: true,
+      // autoClear: false,
+      // lockscreen: true,
+      // foreground: true,
+      // launch: true,
+      // priority: 2,
+      // led: true,
+      // vibrate: true,
+      // attachments: [],
+      // actions:[],
+      // trigger: {
+      //   every: {
+      //     minute: 15
+      //   },
+      // }
+    });
   }
 
   setRingtone() {
     // Preload the audio track
     this.nativeAudio.preloadSimple(
-      'uniqueId1',
-      'assets/tune-android/Antique-Phone.mp3'
+      "uniqueId1",
+      "assets/tune-android/Antique-Phone.mp3"
     );
   }
 
   ionViewWillEnter() {
     this.getUserDetails();
-    const swiper = new Swiper('.swiper', {
-      direction: 'horizontal',
+    const swiper = new Swiper(".swiper", {
+      direction: "horizontal",
       allowSlideNext: true,
       loop: true,
       init: true,
@@ -133,11 +204,11 @@ export class Tab2Page implements OnInit {
   }
 
   getUserDetails() {
-    this.storage.storage.get('USER_DETAILS').then((val) => {
+    this.storage.storage.get("USER_DETAILS").then((val) => {
       if (val) {
         this.userDetails = val;
         this.getDriverTrip(this.userDetails);
-        console.log('userdetails:', this.userDetails);
+        console.log("userdetails:", this.userDetails);
         if (this.userDetails.code === null) {
           this.getIsUserModalClosed();
         }
@@ -149,24 +220,24 @@ export class Tab2Page implements OnInit {
     const params = {
       driver_id: details.id,
     };
-    this.api.post('active_trip', params).then(
+    this.api.post("active_trip", params).then(
       (res: any) => {
         const responseData = JSON.parse(res.data);
         if (responseData.status === true) {
           this.tripDetails = responseData.active_trip;
-          console.log('tripDetails:', this.tripDetails);
+          console.log("tripDetails:", this.tripDetails);
         }
       },
       (err) => {
-        console.log('err', err);
+        console.log("err", err);
       }
     );
   }
 
   getIsUserModalClosed() {
-    this.storage.storage.get('USER_DETAILS_MODAL').then((val) => {
+    this.storage.storage.get("USER_DETAILS_MODAL").then((val) => {
       if (val) {
-        console.log('isOnceClosed:', val);
+        console.log("isOnceClosed:", val);
       } else {
         this.presentApproveModal();
       }
@@ -176,7 +247,7 @@ export class Tab2Page implements OnInit {
   async presentApproveModal() {
     const modal = await this.common.modalCtrl.create({
       component: EditProfilePage,
-      cssClass: 'approve-modal',
+      cssClass: "approve-modal",
       backdropDismiss: false,
       componentProps: {
         first_name: this.userDetails.first_name,
@@ -194,7 +265,7 @@ export class Tab2Page implements OnInit {
   }
 
   onSwiper(event) {
-    console.log('event', event);
+    console.log("event", event);
   }
 
   checkIfNavDisabled(object, slideView) {
@@ -204,11 +275,11 @@ export class Tab2Page implements OnInit {
 
   checkisBeginning(object, slideView) {
     object.isBeginningSlide = slideView?.swiperRef?.isBeginning;
-    console.log('object.isBeginningSlide', object);
+    console.log("object.isBeginningSlide", object);
   }
   checkisEnd(object, slideView) {
     object.isEndSlide = slideView?.swiperRef?.isEnd;
-    console.log('object.isEndSlide', object);
+    console.log("object.isEndSlide", object);
   }
 
   onSlideChange(object, slideView) {
@@ -222,7 +293,7 @@ export class Tab2Page implements OnInit {
     const navigationExtras: NavigationExtras = {
       state: {
         userInfo: this.userDetails,
-        trip: this.tripDetails
+        trip: this.tripDetails,
       },
     };
     this.common.router.navigate([p], navigationExtras);
@@ -239,10 +310,10 @@ export class Tab2Page implements OnInit {
         .then((value) => {
           if (value.audioMode === 0 || value.audioMode === 1) {
             // this will cause vibration in silent mode as well
-            this.alertMode = 'Vibrate';
+            this.alertMode = "Vibrate";
             resolve(false);
           } else {
-            this.alertMode = 'Ring';
+            this.alertMode = "Ring";
             resolve(true);
           }
         })
@@ -256,9 +327,9 @@ export class Tab2Page implements OnInit {
     const audioMode = await this.getAudioMode();
     if (audioMode) {
       // ring mode
-      this.loopMode === 'once' ? this.playSingle() : this.playLoop();
+      this.loopMode === "once" ? this.playSingle() : this.playLoop();
     } else {
-      this.loopMode === 'once'
+      this.loopMode === "once"
         ? this.vibration.vibrate(1000)
         : this.vibration.vibrate([
             1000, 500, 1000, 500, 1000, 500, 1000, 500, 1000,
@@ -268,44 +339,54 @@ export class Tab2Page implements OnInit {
   }
 
   playSingle() {
+    // this.backgroundMode.enable();
+    // this.backgroundMode.on("activate").subscribe(() => {
+    //   this.backgroundMode.disableWebViewOptimizations();
+    //   console.log("BackgroundMode is enabled");
     this.nativeAudio
-      .play('uniqueId1')
+      .play("uniqueId1")
       .then(() => {
-        console.log('Successfully played');
+        console.log("Successfully played");
         this.showAlert();
       })
       .catch((err) => {
-        console.log('error', err);
+        console.log("error", err);
       });
+    // });
   }
 
   playLoop() {
+    // this.backgroundMode.enable();
+    // this.backgroundMode.on("activate").subscribe(() => {
+    //   this.backgroundMode.disableWebViewOptimizations();
+    //   console.log("BackgroundMode is enabled");
     this.nativeAudio
-      .loop('uniqueId1')
+      .loop("uniqueId1")
       .then(() => {
-        console.log('Successfully played');
+        console.log("Successfully played");
         this.showAlert();
       })
       .catch((err) => {
-        console.log('error', err);
+        console.log("error", err);
       });
+    // });
   }
 
   async showAlert() {
     const cancelAlert = await this.alert.create({
-      header: 'Trip Alert',
+      header: "Trip Alert",
       message:
-        'You just played alert with ' +
+        "You just played alert with " +
         this.alertMode +
-        ' , and played it ' +
-        `${this.loopMode === 'once' ? 'just once' : 'on loop'}`,
+        " , and played it " +
+        `${this.loopMode === "once" ? "just once" : "on loop"}`,
       buttons: [
         {
-          text: 'Ok, great!',
+          text: "Ok, great!",
           handler: async () => {
             const audioMode = await this.getAudioMode();
             if (audioMode) {
-              this.nativeAudio.stop('uniqueId1');
+              this.nativeAudio.stop("uniqueId1");
             } else {
               this.vibration.vibrate(0);
             }

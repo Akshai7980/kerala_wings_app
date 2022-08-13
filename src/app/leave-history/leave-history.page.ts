@@ -53,4 +53,35 @@ export class LeaveHistoryPage implements OnInit {
       }
     );
   }
+
+  // To cancel applied leave applied by drivers
+  toCancelLeave(leaveDetails: any) {
+    console.log('leaveDetails:', leaveDetails);
+    const params = {
+      id: leaveDetails.id
+    };
+    console.log('params:',params);
+    this.api.post('', params).then(
+      (res: any) => {
+        const responseData = JSON.parse(res.data);
+        console.log('responseData:', responseData);
+        if (responseData.status === true) {
+          const toastMsg = 'Your leave cancelled successfully!';
+          const toastTime = 2000;
+          this.common.presentToast(toastMsg, toastTime);
+        } else {
+          console.log('false');
+          const toastMsg = 'Your leave cancellation failed!';
+          const toastTime = 2000;
+          this.common.presentToast(toastMsg, toastTime);
+        }
+      },
+      (err) => {
+        console.log('err', err);
+        const toastMsg = 'Something went wrong, please try again later !';
+        const toastTime = 2000;
+        this.common.presentToast(toastMsg, toastTime);
+      }
+    );
+  }
 }

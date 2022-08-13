@@ -12,11 +12,14 @@
         "driverbooking",
         "ferreyra",
         "haptics",
+        "indexeddb",
         "Innova",
         "jasminewd",
         "landnumber",
+        "lockscreen",
         "mipmap",
         "nativeaudio",
+        "Notif",
         "Puqlj",
         "RREI",
         "splashscreen",
@@ -24,6 +27,7 @@
         "taxibooking",
         "titlecase",
         "userdetails",
-        "vehiclelist"
+        "vehiclelist",
+        "websql"
     ]
 }

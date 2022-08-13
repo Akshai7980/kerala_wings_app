@@ -18,6 +18,7 @@ export class BookingPage implements OnInit {
   dateChoosed: string;
   numberOfDays: string;
   endDateChoosed: string;
+  timeChoosed: string;
 
   cabBookingForm = new FormGroup({
     vehicle_type: new FormControl(undefined, [Validators.required]),
@@ -41,7 +42,6 @@ export class BookingPage implements OnInit {
     driver: new FormControl(undefined, [Validators.minLength(3)]),
     remark: new FormControl(undefined, [Validators.minLength(1)]),
   });
-  timeChoosed: string;
 
   constructor(private common: CommonService, private api: ApiService) {}
 
@@ -63,7 +63,7 @@ export class BookingPage implements OnInit {
     console.log("today:", today.toISOString().split("T")[0]);
 
     this.getNumberOfDaysJSON();
-    this.getAllVehicles();
+    // this.getAllVehicles();
     this.cabBookingForm.controls["booking_date"].setValue(
       today.toISOString().split("T")[0]
     );
@@ -127,22 +127,22 @@ export class BookingPage implements OnInit {
       });
   }
 
-  getAllVehicles() {
-    this.api.get("vehicle_list").subscribe(
-      (res: any) => {
-        if (res.vehiclelist.length !== 0) {
-          this.allVehicles = res.vehiclelist;
-          console.log("allVehicles:", this.allVehicles);
-        }
-      },
-      (err) => {
-        console.log("err:", err);
-        const toastMsg = "Something went wrong, please try again later !";
-        const toastTime = 2000;
-        this.common.presentToast(toastMsg, toastTime);
-      }
-    );
-  }
+  // getAllVehicles() {
+  //   this.api.get("vehicle_list").subscribe(
+  //     (res: any) => {
+  //       if (res.vehiclelist.length !== 0) {
+  //         this.allVehicles = res.vehiclelist;
+  //         console.log("allVehicles:", this.allVehicles);
+  //       }
+  //     },
+  //     (err) => {
+  //       console.log("err:", err);
+  //       const toastMsg = "Something went wrong, please try again later !";
+  //       const toastTime = 2000;
+  //       this.common.presentToast(toastMsg, toastTime);
+  //     }
+  //   );
+  // }
 
   segmentChanged(event: any) {
     this.segmentChoosed = event.detail.value;
@@ -151,7 +151,7 @@ export class BookingPage implements OnInit {
 
   submitCab() {
     console.log("cabBooking:", this.cabBookingForm.value);
-    if (this.cabBookingForm.valid) {
+    if (this.cabBookingForm.valid && this.timeChoosed !== "") {
       this.common.simpleLoader("");
       const params = {
         customer_name: this.userDetails.customer_name,
@@ -167,7 +167,7 @@ export class BookingPage implements OnInit {
         location: this.userDetails.location,
         driver: 0,
         booking_date: this.cabBookingForm.value.booking_date,
-        timepicker: this.cabBookingForm.value.timepicker,
+        timepicker: this.timeChoosed,
         end_date: this.cabBookingForm.value.end_date,
       };
       console.log("params:", params);
@@ -201,8 +201,8 @@ export class BookingPage implements OnInit {
 
   submitDriver() {
     console.log("driverBooking:", this.driverBookingForm.value);
-    if (this.driverBookingForm.valid) {
-      if (this.driverBookingForm.value.vehicle_type !== 'select') {
+    if (this.driverBookingForm.valid && this.timeChoosed !== "") {
+      if (this.driverBookingForm.value.vehicle_type !== "select") {
         this.common.simpleLoader("");
         const params = {
           customer_name: this.userDetails.customer_name,
@@ -219,7 +219,7 @@ export class BookingPage implements OnInit {
           location: this.userDetails.location,
           driver: 1,
           booking_date: this.driverBookingForm.value.booking_date,
-          timepicker: this.driverBookingForm.value.timepicker,
+          timepicker: this.timeChoosed,
           end_date: this.driverBookingForm.value.end_date,
         };
         console.log("params:", params);
@@ -245,7 +245,8 @@ export class BookingPage implements OnInit {
         );
       } else {
         const alertHead = "Failed!";
-        const alertMsg = "Please choose a vehicle type and then click book driver.";
+        const alertMsg =
+          "Please choose a vehicle type and then click book driver.";
         this.common.presentAlert(alertHead, alertMsg);
         this.common.dismissLoader();
       }
@@ -270,8 +271,22 @@ export class BookingPage implements OnInit {
     // this.common.modalCtrl.dismiss();
     console.log("event:", event.detail.value);
     if (event) {
-      this.timeChoosed = event.detail.value;
+      const timeString = event.detail.value;
+      const timeString12hr = new Date(
+        "1970-01-01T" + timeString + "Z"
+      ).toLocaleTimeString("en-US", {
+        timeZone: "UTC",
+        hour12: true,
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+      });
+      console.log("timeString12hr:", timeString12hr);
+      this.timeChoosed = timeString12hr;
       console.log("timeChoosed:", this.timeChoosed);
+      // this.driverBookingForm.controls["timepicker"].setValue(
+      //   this.timeChoosed
+      // );
     }
   }
 
@@ -282,11 +297,24 @@ export class BookingPage implements OnInit {
         console.log("days:", days);
         this.numberOfDays = days.No;
         this.cabBookingForm.controls["no_day"].setValue(days.No);
+        const daysNumber = parseInt(days.No);
+        const date = new Date();
+        date.setDate(date.getDate() + daysNumber);
+        this.cabBookingForm.controls["end_date"].setValue(
+          date.toISOString().split("T")[0]
+        );
       }
     } else {
       if (days) {
+        console.log("days:", days);
         this.numberOfDays = days.No;
         this.driverBookingForm.controls["no_day"].setValue(days.No);
+        const daysNumber = parseInt(days.No);
+        const date = new Date();
+        date.setDate(date.getDate() + daysNumber);
+        this.driverBookingForm.controls["end_date"].setValue(
+          date.toISOString().split("T")[0]
+        );
       }
     }
   }

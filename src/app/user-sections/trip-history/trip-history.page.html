@@ -54,11 +54,34 @@
         <p> {{ trip?.timepicker }} </p>
       </div>
       <div style="width: 45%;">
-        <h6>Pick Up Address</h6>
+        <h6>Pick Up location</h6>
         <p> {{ trip?.address }} </p>
         <p> {{ trip?.location }} </p>
-        <h6>Drop Off Address</h6>
+        <h6>Destination</h6>
         <p> {{ trip?.destination }} </p>
+        <h6>Vehicle Type</h6>
+        <p> {{ trip?.vehicle_name }} </p>
+        <h6>Number Of Seat</h6>
+        <p> {{ trip?.vehicle_name }} </p>
+      </div>
+    </div>
+
+    <div style="display: flex;
+    align-items: center;
+    justify-content: space-between; margin-top: 30px;">
+      <div style="background-color: #3425c7;
+      border: 1px solid white;
+      padding: 7px;
+      border-radius: 7px; margin-right: 5px;">
+        <h6 style="margin: 0px;
+        color: white;">Vehicle Number : {{ trip?.vehicle_number | uppercase }} </h6>
+      </div>
+      <div *ngIf="trip?.amount !== null" style="background-color: #3425c7;
+      border: 1px solid white;
+      padding: 7px;
+      border-radius: 7px; margin-left: 5px;">
+        <h6 style="margin: 0px;
+        color: white;">Amount Collected : {{ trip?.amount }} </h6>
       </div>
     </div>
 
@@ -81,13 +104,39 @@
       <div>
         <h6>Start Time</h6>
         <p> {{ trip?.timepicker }} </p>
+
+        <h6>End Date</h6>
+        <p> {{ trip?.end_date }} </p>
       </div>
       <div style="width: 45%;">
-        <h6>Pick Up Address</h6>
+        <h6>Pick Up Location</h6>
         <p> {{ trip?.address }} </p>
         <p> {{ trip?.location }} </p>
-        <h6>Drop Off Address</h6>
+        <h6>Destination</h6>
         <p> {{ trip?.destination }} </p>
+        <h6>Vehicle Type</h6>
+        <p> {{ trip?.vehicle_type }} </p>
+        <h6>Number Of Seats</h6>
+        <p> {{ trip?.seat_no }} </p>
+      </div>
+    </div>
+
+    <div style="display: flex;
+    align-items: center;
+    justify-content: space-between; margin-top: 30px;">
+      <div style="background-color: #3425c7;
+      border: 1px solid white;
+      padding: 7px;
+      border-radius: 7px; margin-right: 5px;">
+        <h6 style="margin: 0px;
+        color: white;">Vehicle Number : {{ trip?.vehicle_number | uppercase }} </h6>
+      </div>
+      <div *ngIf="trip?.amount !== null" style="background-color: #3425c7;
+      border: 1px solid white;
+      padding: 7px;
+      border-radius: 7px; margin-left: 5px;">
+        <h6 style="margin: 0px;
+        color: white;">Amount Collected : {{ trip?.amount }} </h6>
       </div>
     </div>
 
