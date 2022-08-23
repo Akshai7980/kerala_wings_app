@@ -22,8 +22,10 @@ export class TripClosingPage implements OnInit {
 
   closeTripWithAmount() {
     if (this.tripAmount !== null && this.tripAmount !== undefined) {
-      const loadingMsg = 'We are updating your trip amount, please wait...';
-      this.common.simpleLoader(loadingMsg);
+      this.common.simpleLoader('');
+      const toastMsg = 'We are updating your trip amount, please wait....';
+      const toastTime = 3000;
+      this.common.presentToast(toastMsg, toastTime);
 
       const params = {
         driverid: this.driverId,

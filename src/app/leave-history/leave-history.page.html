@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button (click)="this.common.router.navigate(['tabs/tab2'])"></ion-back-button>
     </ion-buttons>
     <ion-title>Leave History</ion-title>
   </ion-toolbar>
@@ -53,7 +53,7 @@
           font-size: 17px;
         "
       >
-        {{ leave?.leave_type }}
+        {{ leave?.leave_type | titlecase }}
       </p>
 
       <div
@@ -70,7 +70,7 @@
             style="color: #570fef; margin-right: 5px"
           ></ion-icon>
           <span style="font-size: 15px; color: #4f4f4f">
-            From : {{ leave?.lock_start }}
+            From : {{ leave?.lock_start | date:'mediumDate' }}
           </span>
         </div>
 
@@ -80,7 +80,7 @@
             style="color: #570fef; margin-right: 5px"
           ></ion-icon>
           <span style="font-size: 15px; color: #4f4f4f">
-            To : {{ leave?.lock_end }}
+            To : {{ leave?.lock_end | date:'mediumDate' }}
           </span>
         </div>
       </div>
@@ -90,7 +90,7 @@
       <ion-button
         shape="round"
         (click)="toCancelLeave(leave)"
-        style="display: flex; align-items: center"
+        style="display: flex; align-items: center; --box-shadow: none;" 
         >Cancel</ion-button
       >
     </div>

@@ -1,28 +1,64 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button style="color: white"></ion-back-button>
+      <ion-back-button style="color: white" (click)="this.common.router.navigate(['tabs/tab2'])"></ion-back-button>
     </ion-buttons>
     <ion-title>Apply Leave</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <div>
+    <img src="../../assets/images/leaveInfo.jpeg" alt="" />
+  </div>
+
+  <div
+    style="
+      display: flex;
+      align-items: center;
+      padding: 0px 5px;
+      justify-content: space-between;
+      border-radius: 10px;
+      border: 1px solid grey;
+      margin: 10px;
+    "
+  >
+    <div>
+      <ion-icon
+        name="alert-circle"
+        style="font-size: xx-large; margin-right: 10px; color: red"
+      ></ion-icon>
+    </div>
+    <div>
+      <p>
+        <strong>
+          മുഴുവൻ ദിവസത്തെ അവധിയെടുക്കാൻ ഡ്രൈവർമാർ, ആരംഭിക്കുന്ന തീയതിയും (From Date) അവസാന
+          തീയതിയും (To Date) ഒരേ തീയതിയായി തിരഞ്ഞെടുക്കേണ്ടതുണ്ട്.
+        </strong>
+      </p> 
+    </div>
+  </div>
   <ion-card>
     <ion-card-header> Apply Leave </ion-card-header>
 
     <form [formGroup]="leaveForm" (ngSubmit)="submitLeave()">
-
       <div style="margin-top: 15px">
         <ion-label>From Date</ion-label>
-        <ion-input placeholder="Choose pick up date and time" id="from-modal" formControlName="start_date"
-          [readonly]="true">
+        <ion-input
+          placeholder="Choose pick up date and time"
+          id="from-modal"
+          formControlName="start_date"
+          [readonly]="true"
+        >
         </ion-input>
 
         <ion-modal trigger="from-modal">
           <ng-template>
             <ion-content>
-              <ion-datetime presentation="date" (ionChange)="doSomething($event, 'FROM')">
+              <ion-datetime
+                presentation="date"
+                (ionChange)="doSomething($event, 'FROM')"
+              >
                 <div slot="title"></div>
               </ion-datetime>
             </ion-content>
@@ -30,14 +66,21 @@
         </ion-modal>
 
         <ion-label>To Date</ion-label>
-        <ion-input placeholder="Choose pick up date and time" id="to-modal" [readonly]="true"
-          formControlName="end_date">
+        <ion-input
+          placeholder="Choose pick up date and time"
+          id="to-modal"
+          [readonly]="true"
+          formControlName="end_date"
+        >
         </ion-input>
 
         <ion-modal trigger="to-modal">
           <ng-template>
             <ion-content>
-              <ion-datetime presentation="date" (ionChange)="doSomething($event, 'TO')">
+              <ion-datetime
+                presentation="date"
+                (ionChange)="doSomething($event, 'TO')"
+              >
                 <div slot="title"></div>
               </ion-datetime>
             </ion-content>
@@ -45,13 +88,16 @@
         </ion-modal>
 
         <ion-label>Leave Type</ion-label>
-        <ion-input readonly="true" placeholder="Select Leave Type" formControlName="leave_type"></ion-input>
+        <ion-input
+          readonly="true"
+          placeholder="Select Leave Type"
+          formControlName="leave_type"
+        ></ion-input>
 
         <div style="text-align: center">
           <ion-button shape="round" type="submit">Apply Leave</ion-button>
         </div>
       </div>
     </form>
-
   </ion-card>
 </ion-content>

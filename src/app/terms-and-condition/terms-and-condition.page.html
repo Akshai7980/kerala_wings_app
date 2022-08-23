@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button (click)="this.common.router.navigate(['tabs/tab2'])"></ion-back-button>
     </ion-buttons>
     <ion-title>Terms & Condition</ion-title>
   </ion-toolbar>
@@ -9,6 +9,12 @@
 
 <ion-content>
   <ion-card>
+
+    <img src="../../../assets/images/02.jpg" alt="" />
+    <img src="../../../assets/images/03.jpg" alt="" />
+    <img src="../../../assets/images/04.jpg" alt="" />
+    <img src="../../../assets/images/05.jpg" alt="" />
+
     :(1).Address the customer as Sir/Madam.(2).Do not on A/C, Stereo, etc.
     without taking permission from the customer.(3).Deal every customer with
     politeness.(4).Contact the customer immediately once you get the
@@ -42,10 +48,5 @@
     terminated due to the violation of rule, the security deposit will not be
     refunded.(30)Management can take any disciplinary action on violation of the
     terms and condition.
-
-    <img src="../../../assets/images/02.jpg" alt="" />
-    <img src="../../../assets/images/03.jpg" alt="" />
-    <img src="../../../assets/images/04.jpg" alt="" />
-    <img src="../../../assets/images/05.jpg" alt="" />
   </ion-card>
 </ion-content>

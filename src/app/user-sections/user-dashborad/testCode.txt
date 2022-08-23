@@ -34,3 +34,16 @@
           <ion-icon name="settings"></ion-icon>
           <ion-text>Settings</ion-text>
         </div> -->
+
+            // this.getUserDetails();
+
+    // this.getActiveTrip(this.userDetails.customer_number);
+    // this.getActiveDriver(this.userDetails.customer_number);
+
+              this.allBooking = responseData.all_driverbooking;
+
+          this.allBookingTaxi = responseData.all_taxibooking;
+
+          this.activeTrip = responseData.all_taxibooking;
+
+          this.activeDriver = responseData.all_driverbooking;

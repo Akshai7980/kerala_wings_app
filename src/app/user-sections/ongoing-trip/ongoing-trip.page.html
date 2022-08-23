@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button icon="chevron-back">
+      <ion-back-button icon="chevron-back" defaultHref="/user-dashborad">
       </ion-back-button>
     </ion-buttons>
     <ion-title *ngIf="viewType === 'ongoing'" style="color: black;">Ongoing Trip</ion-title>
@@ -25,7 +25,7 @@
     </div>
   </div>
 
-  <div *ngIf="viewType === 'ongoing'">
+  <div *ngIf="viewType === 'details'">
     <div *ngIf="activeTrip.length !== 0">
       <div class="trip-details-main-container , animate__animated animate__fadeIn"
         *ngFor="let trip of activeTrip; let i = index ">
@@ -107,7 +107,7 @@
     </div>
   </div>
 
-  <div *ngIf="viewType === 'details' || viewType === 'ongoing'">
+  <div *ngIf="viewType === 'ongoing'">
 
     <div *ngIf="allBooking.length !== 0" class="animate__animated animate__fadeIn">
       <div class="trip-details-main-container" *ngFor="let trip of allBooking ">

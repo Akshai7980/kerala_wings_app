@@ -10,7 +10,7 @@ export class TermsAndConditionPage implements OnInit {
   userDetails: any = [];
 
   constructor(
-    private common: CommonService,
+    public common: CommonService,
   ) {
     this.common.route.queryParams.subscribe(params => {
       if (this.common.router.getCurrentNavigation().extras.state) {

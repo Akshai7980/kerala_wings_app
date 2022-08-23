@@ -9,14 +9,44 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-header class="ion-no-border">
+
   <swiper pager="true" [initialSlide]="0" [slidesPerView]="1" [autoplay]="true" [loop]="true" [simulateTouch]="true"
-    [allowSlideNext]="true" #slideWithNav (slideChange)="onSlideChange(sliderImages,slideWithNav)"
-    style="margin: 10px; border-radius: 7px">
-    <ng-template swiperSlide *ngFor="let s of sliderImages.slidesItems; let i=index" (ionChange)="onChange(i)">
-      <img style="height: 220px; object-fit: inherit; width: 100%" [src]="s.Image" />
-    </ng-template>
-  </swiper>
+  [allowSlideNext]="true" #slideWithNav
+  style="margin: 10px; border-radius: 7px">
+  <ng-template swiperSlide *ngFor="let s of sliderImages.slidesItems; let i=index" (ionChange)="onChange(i)">
+    <img style="height: 220px; object-fit: inherit; width: 100%" [src]="s.Image" />
+  </ng-template>
+</swiper>
+
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div style="
+    display: flex;
+    align-items: center;
+    padding: 0px 5px;
+    justify-content: space-between;
+    border-radius: 10px;
+    border: 1px solid grey;
+    margin: 10px;
+  ">
+    <div>
+      <ion-icon name="alert-circle" style="font-size: xx-large; margin-right: 10px; color: red"></ion-icon>
+    </div>
+    <div>
+      <p>
+        <strong>
+          ട്രിപ്പ് ആപ്ലിക്കേഷനിൽ വന്നതിനുശേഷം ലീവ് പറയുകയോ എടുക്കാതിരിക്കുകയോ ചെയ്താൽ 3 ദിവസം സസ്പെൻഷൻ ആകുന്നതാണ്
+        </strong>
+      </p>
+    </div>
+  </div>
 
   <ion-card *ngIf="tripDetails?.length === 1 && tripDetails[0].driver_view_status === 0" style="
       background: red;
@@ -129,7 +159,34 @@
   </div>
 
   <div style="display: flex; align-items: center; justify-content: space-evenly">
-    <ion-card style="width: 100%; margin: 10px 23px 0px 23px" class="ion-activatable ripple-parent"
+    <div>
+      <ion-card class="ion-activatable ripple-parent" (click)="gotoPage('/tabs/tab2')">
+        <div style="display: grid;
+        justify-items: center;">
+          <ion-icon name="wallet" style="font-size: 55px;"></ion-icon>
+          <ion-text style="display: flex;
+          align-items: center;">Payment</ion-text>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+    </div>
+
+    <div>
+      <ion-card class="ion-activatable ripple-parent" (click)="gotoPage('/terms-and-condition')">
+        <div style="display: grid;
+        justify-items: center;">
+          <ion-icon name="document-text" style="font-size: 55px;"></ion-icon>
+          <ion-text style="display: flex;
+          align-items: center;">Terms & Conditions</ion-text>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- <div style="display: flex; align-items: center; justify-content: space-evenly"> -->
+  <!-- <div>
+      <ion-card style="width: 100%; margin: 10px 23px 0px 23px" class="ion-activatable ripple-parent"
       (click)="gotoPage('/tabs/tab2')">
       <div style="text-align: center">
         <ion-icon name="wallet" style="font-size: 55px;"></ion-icon>
@@ -138,8 +195,21 @@
       </div>
       <ion-ripple-effect></ion-ripple-effect>
     </ion-card>
+    </div> -->
 
-    <!-- <ion-list class="ion-padding-bottom">
+  <!-- <div>
+      <ion-card class="ion-activatable ripple-parent" (click)="gotoPage('/tabs/tab1')">
+        <div style="display: grid;
+        justify-items: center;">
+          <ion-icon name="document-text" style="font-size: 55px;"></ion-icon>
+          <ion-text style="display: flex;
+          align-items: center;">Terms & Conditions</ion-text>
+        </div>
+        <ion-ripple-effect></ion-ripple-effect>
+      </ion-card>
+    </div> -->
+
+  <!-- <ion-list class="ion-padding-bottom">
         <ion-radio-group [value]="loopMode" [(ngModel)]="loopMode">
           <ion-list-header color="medium">
             <ion-label>Select Alert Preference</ion-label>
@@ -164,7 +234,7 @@
           (ring/vibrate/silent). You can also decide whether to loop a particular sound or use a vibration pattern
         </ion-card-content>
       </ion-card> -->
-  </div>
+  <!-- </div> -->
 </ion-content>
 
 <!-- <ion-footer>

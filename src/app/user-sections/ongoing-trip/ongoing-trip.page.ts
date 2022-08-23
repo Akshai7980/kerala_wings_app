@@ -13,9 +13,11 @@ export class OngoingTripPage implements OnInit {
   userDetails: any = [];
   activeTrip: any = [];
   activeDriver: any = [];
-  viewType: string;
+  viewType!: string;
   allBooking: any = [];
   allBookingTaxi: any = [];
+  modeOfTrip: any;
+  commonArray: any = [];
 
   constructor(private api: ApiService, private common: CommonService) {
     this.common.route.queryParams.subscribe((params) => {
@@ -26,15 +28,30 @@ export class OngoingTripPage implements OnInit {
         this.viewType =
           this.common.router.getCurrentNavigation().extras.state.clickedType;
         console.log("viewType:", this.viewType);
+        this.commonArray =
+          this.common.router.getCurrentNavigation().extras.state.tripDetails;
+        console.log("commonArray:", this.commonArray);
+        this.modeOfTrip =
+          this.common.router.getCurrentNavigation().extras.state.modeOfTrip;
+        console.log("modeOfTrip:", this.modeOfTrip);
       }
     });
   }
 
   ngOnInit() {
-    this.getActiveTrip(this.userDetails.customer_number);
-    this.getActiveDriver(this.userDetails.customer_number);
-    this.getAllBookingDriver(this.userDetails.customer_number);
-    this.getAllBookingCab(this.userDetails.customer_number);
+    console.log("viewType:", this.viewType);
+    if (this.viewType === "ongoing") {
+      this.getActiveTrip(this.userDetails.customer_number);
+      this.getActiveDriver(this.userDetails.customer_number);
+    } else if (this.viewType === "details") {
+      if (this.modeOfTrip === "driver" && this.modeOfTrip !== "") {
+        this.activeDriver[0] = this.commonArray;
+      } else {
+        this.activeTrip[0] = this.commonArray;
+      }
+    }
+    // this.getAllBookingDriver(this.userDetails.customer_number);
+    // this.getAllBookingCab(this.userDetails.customer_number);
   }
 
   getAllBookingDriver(mobileNumber: string) {
@@ -100,11 +117,11 @@ export class OngoingTripPage implements OnInit {
           const allTaxiBooking = res.all_taxibooking;
           for (let i = 0; i < allTaxiBooking.length; i++) {
             if (allTaxiBooking[i].trip_status === 1) {
+              // trip status is 1 means, the booked trip is active
               this.activeTrip.push(allTaxiBooking[i]);
               console.log("activeTrip:", this.activeTrip);
             }
           }
-          // this.activeTrip = res.all_taxibooking;
         } else {
           console.log("false");
         }
@@ -130,12 +147,11 @@ export class OngoingTripPage implements OnInit {
           const allDriverBooking = res.all_driverbooking;
           for (let i = 0; i < allDriverBooking.length; i++) {
             if (allDriverBooking[i].trip_status === 1) {
+              // trip status is 1 means, the booked trip is active
               this.activeDriver.push(allDriverBooking[i]);
               console.log("activeDriver:", this.activeDriver);
             }
           }
-          // this.activeDriver = res.all_driverbooking;
-          // console.log("activeDriver:", this.activeDriver);
         } else {
           console.log("false");
         }

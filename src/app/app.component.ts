@@ -7,6 +7,7 @@ import { CommonService } from "./_service/common.service";
 import { LogoutPage } from "./_modal/logout/logout.page";
 import { ApiService } from "./_service/api.service";
 import { LocalNotifications } from "@awesome-cordova-plugins/local-notifications/ngx";
+import { AuthenticationService } from "./_service/Authentication.service";
 // import { BackgroundMode } from "@awesome-cordova-plugins/background-mode/ngx";
 
 @Component({
@@ -63,6 +64,7 @@ export class AppComponent {
     private common: CommonService,
     private api: ApiService,
     private localNotifications: LocalNotifications,
+    private authenticationService: AuthenticationService
     // private backgroundMode: BackgroundMode
   ) {
     this.initializeApp();
@@ -142,10 +144,19 @@ export class AppComponent {
       .then(async (val) => {
         if (val) {
           this.userDetails = val;
-          console.log("userDetails:", this.userDetails);
-          await this.navCtrl.navigateRoot("/tabs/tab2");
+          this.authenticationService.authState.subscribe(async state => {
+            if (state) {
+              await this.navCtrl.navigateRoot("/tabs/tab2");
+              console.log("userDetails:", this.userDetails);
+              // this.router.navigate(['dashboard']);
+            } else {
+              this.router.navigate(['login']);
+            }
+          });
+          // await this.navCtrl.navigateRoot("/tabs/tab2");
         } else {
           console.log("val:", val);
+          await this.navCtrl.navigateRoot("/landing");
         }
       })
       .catch((err) => {
@@ -163,6 +174,7 @@ export class AppComponent {
           await this.navCtrl.navigateRoot("/user-dashborad");
         } else {
           console.log("val:", val);
+          await this.navCtrl.navigateRoot("/landing");
         }
       })
       .catch((err) => {

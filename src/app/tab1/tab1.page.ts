@@ -4,16 +4,16 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable quote-props */
 /* eslint-disable @typescript-eslint/naming-convention */
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../_service/api.service';
-import { CommonService } from '../_service/common.service';
-import { StorageService } from '../_service/storage.service';
-import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
-import { TripClosingPage } from '../_modal/trip-closing/trip-closing.page';
+import { Component, OnInit } from "@angular/core";
+import { ApiService } from "../_service/api.service";
+import { CommonService } from "../_service/common.service";
+import { StorageService } from "../_service/storage.service";
+import { CallNumber } from "@awesome-cordova-plugins/call-number/ngx";
+import { TripClosingPage } from "../_modal/trip-closing/trip-closing.page";
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss'],
+  selector: "app-tab1",
+  templateUrl: "tab1.page.html",
+  styleUrls: ["tab1.page.scss"],
 })
 export class Tab1Page implements OnInit {
   tripDetails: any = [];
@@ -42,8 +42,25 @@ export class Tab1Page implements OnInit {
     this.getUserDetails();
   }
 
+  ionViewWillEnter() {
+    this.getUserDetails();
+  }
+
+  ionViewWillLeave() {
+    clearInterval(this.interval);
+  }
+
+  doRefresh(event: any) {
+    this.getTripDetails(this.userDetails);
+
+    setTimeout(() => {
+      console.log("Async operation has ended");
+      event.target.complete();
+    }, 2000);
+  }
+
   getUserDetails() {
-    this.storage.storage.get('USER_DETAILS').then((val) => {
+    this.storage.storage.get("USER_DETAILS").then((val) => {
       if (val) {
         this.userDetails = val;
         this.interval = setInterval(() => {
@@ -53,60 +70,85 @@ export class Tab1Page implements OnInit {
     });
   }
 
+  trackByFn(index: number, item: any): number {
+    return item.serialNumber;
+  }
+
   getTripDetails(details: any) {
     const params = {
       driver_id: details.id,
     };
-    this.api.post('active_trip', params).then(
+    console.log("params:", params);
+    this.api.post("active_trip", params).then(
       (res: any) => {
+        console.log("res:", res);
         const responseData = JSON.parse(res.data);
+        console.log("responseData:", responseData);
         if (responseData.status === true) {
-          this.tripDetails = responseData.active_trip;
-          if (this.tripDetails[0].driver_view_status === 0) {
-            this.updateTripSeenStatus(this.tripDetails[0]?.id);
+          console.log("Type:", this.userDetails.type);
+          if (this.userDetails.type === "Taxi Driver") {
+            this.tripDetails = [];
+            for (let i = 0; i < responseData.active_trip_taxi.length; i++) {
+              this.tripDetails.push(responseData.active_trip_taxi[i]);
+            }
           } else {
-            console.log('seen status updated already');
+            this.tripDetails = [];
+            for (let i = 0; i < responseData.active_trip.length; i++) {
+              this.tripDetails.push(responseData.active_trip[i]);
+            }
           }
-          console.log('tripDetails:', this.tripDetails);
-          this.hideSkeleton = false;
-          this.getTodayDate();
-          this.getYesterdayDate();
-          this.getTomorrowDate();
-          this.getDayOfPastTrip();
+          console.log("tripDetails:", this.tripDetails);
+          if (this.tripDetails.length > 0) {
+            if (this.tripDetails[0]?.driver_view_status === 0) {
+              this.updateTripSeenStatus(this.tripDetails[0]?.id);
+            } else {
+              console.log("seen status updated already");
+            }
+            console.log("tripDetails:", this.tripDetails);
+            this.hideSkeleton = false;
+            this.getTodayDate();
+            this.getYesterdayDate();
+            this.getTomorrowDate();
+            this.getDayOfPastTrip();
+          }
         } else {
           this.tripDetails = [];
           setTimeout(() => {
             this.hideSkeleton = true;
-          }, 500);
+          }, 100);
         }
       },
       (err) => {
-        console.log('err', err);
+        console.log("err", err);
       }
     );
   }
 
   updateTripSeenStatus(tripId: any) {
-    console.log('tripId:',tripId);
+    this.common.simpleLoader("");
+    console.log("tripId:", tripId);
     const toastMsg =
-      ' ⏳ Please wait while we are updating your trip view status. ';
+      " ⏳ Please wait while we are updating your trip view status. ";
     const toastTime = 5000;
     this.common.presentToast(toastMsg, toastTime);
     const params = {
       trip_id: tripId,
-      driver_view_status: '1', // status no: 1 is used to update trip seen status
+      driver_view_status: "1", // status no: 1 is used to update trip seen status
     };
-    this.api.post('update_driver_view_status', params).then(
+    this.api.post("update_driver_view_status", params).then(
       (res: any) => {
         const responseData = JSON.parse(res.data);
         if (responseData.status === true) {
-          console.log('seen status updated');
+          this.common.loadingCtrl.dismiss();
+          console.log("seen status updated");
         } else {
-          console.log('updating failed');
+          this.common.loadingCtrl.dismiss();
+          console.log("updating failed");
         }
       },
       (err) => {
-        console.log('err', err);
+        this.common.loadingCtrl.dismiss();
+        console.log("err", err);
       }
     );
   }
@@ -117,7 +159,7 @@ export class Tab1Page implements OnInit {
     const bookingDateToGMT = new Date(this.tripDetails[0]?.booking_date);
     const bookingDate = bookingDateToGMT.toDateString();
     if (bookingDate === today) {
-      return (this.displayDay = 'Today');
+      return (this.displayDay = "Today");
     }
   }
 
@@ -127,7 +169,7 @@ export class Tab1Page implements OnInit {
     yesterday.setDate(yesterday.getDate() - 1);
     const bookingDateToGMT = new Date(this.tripDetails[0]?.booking_date);
     if (bookingDateToGMT.toDateString() === yesterday.toDateString()) {
-      return (this.displayDay = 'Yesterday');
+      return (this.displayDay = "Yesterday");
     }
   }
 
@@ -137,7 +179,7 @@ export class Tab1Page implements OnInit {
     tomorrow.setDate(tomorrow.getDate() + 1);
     const bookingDateToGMT = new Date(this.tripDetails[0]?.booking_date);
     if (bookingDateToGMT.toDateString() === tomorrow.toDateString()) {
-      return (this.displayDay = 'Tomorrow');
+      return (this.displayDay = "Tomorrow");
     }
   }
 
@@ -154,25 +196,25 @@ export class Tab1Page implements OnInit {
       bookingDateToGMT.toDateString() !== yesterday.toDateString()
     ) {
       return (this.displayDay =
-        'Last ' +
-        bookingDateToGMT.toLocaleDateString('en-US', { weekday: 'long' }));
+        "Last " +
+        bookingDateToGMT.toLocaleDateString("en-US", { weekday: "long" }));
     }
   }
 
   callTripClient(tripDetails: any) {
-    console.log('tripDetails:',tripDetails);
+    console.log("tripDetails:", tripDetails);
     this.callNumber
       .callNumber(tripDetails?.customer_number, true)
-      .then((res) => console.log('Launched dialer!', res))
-      .catch((err) => console.log('Error launching dialer', err));
+      .then((res) => console.log("Launched dialer!", res))
+      .catch((err) => console.log("Error launching dialer", err));
   }
 
   // To show trip amount inserting modal
   async closeTripModal(tripDetails: any) {
-    console.log('tripDetails:',tripDetails);
+    console.log("tripDetails:", tripDetails);
     const modal = await this.common.modalCtrl.create({
       component: TripClosingPage,
-      cssClass: 'close-trip-modal',
+      cssClass: "close-trip-modal",
       componentProps: {
         driverId: tripDetails?.driver_id,
         tripId: tripDetails?.id,
@@ -183,22 +225,22 @@ export class Tab1Page implements OnInit {
 
   // To start assigned trip
   toStartTrip(tripId: any) {
-    console.log('tripId:',tripId);
+    console.log("tripId:", tripId);
     const params = {
       trip_id: tripId,
-      driver_view_status: '2', // status no: 2 is used to start trip
+      driver_view_status: "2", // status no: 2 is used to start trip
     };
-    this.api.post('update_driver_view_status', params).then(
+    this.api.post("update_driver_view_status", params).then(
       (res: any) => {
         const responseData = JSON.parse(res.data);
         if (responseData.status === true) {
-          console.log('trip start status updated');
+          console.log("trip start status updated");
         } else {
-          console.log('updating failed');
+          console.log("updating failed");
         }
       },
       (err) => {
-        console.log('err', err);
+        console.log("err", err);
       }
     );
   }

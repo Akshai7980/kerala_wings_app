@@ -15,7 +15,7 @@ export class ApplyLeavePage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private common: CommonService,
+    public common: CommonService,
     private api: ApiService
   ) {
     this.common.route.queryParams.subscribe((params) => {

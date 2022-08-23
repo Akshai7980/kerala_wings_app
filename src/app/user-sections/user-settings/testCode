@@ -1,0 +1,8 @@
+[style]=" 'height:' + (this.plt.height() - 100) + 'px;' "
+
+      <!-- <h5>About Kerala Wings</h5>
+      <ion-text>
+        <p>
+          If 3 hrs duration reaches 6 hrs, it will be converted to 8hrs. If 8hrs duration is extended to 10hours, it will be converted to 12hr package. Durations greater than 12hr, will be charged for regular cost.
+        </p>
+      </ion-text> -->

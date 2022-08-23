@@ -49,7 +49,6 @@ export class Tab2Page implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const notificationPermission = this.localNotifications.hasPermission();
-    console.log("hasPermission:", notificationPermission);
     if ((await notificationPermission) === true) {
       console.log("has permission");
     } else {
@@ -70,6 +69,9 @@ export class Tab2Page implements OnInit {
       isBeginningSlide: true,
       isEndSlide: false,
       slidesItems: [
+        {
+          Image: "../../assets/images/Keralawings.jpeg",
+        },
         {
           Image: "../../assets/images/trip1.jpeg",
         },
@@ -92,20 +94,19 @@ export class Tab2Page implements OnInit {
     };
   }
 
+  doRefresh(event: any) {
+    this.getUserDetails();
+
+    setTimeout(() => {
+      console.log("Async operation has ended");
+      event.target.complete();
+    }, 2000);
+  }
+
+
   subscribePushNotification() {
     this.fcm.onNotification().subscribe(
       (data) => {
-        // this.backgroundMode.isScreenOff(function (bool) {
-        //   console.log("isScreenOff:", bool);
-        //   if (bool === true) {
-        //     this.backgroundMode.wakeUp();
-        //     this.backgroundMode.unlock();
-        //     this.backgroundMode.moveToForeground();
-        //   }
-        //   //   else {
-        //   //   this.backgroundMode.moveToForeground();
-        //   //  }
-        // });
         console.log("data:", data);
         // this.simpleNotif();
         if (data.wasTapped) {
@@ -140,40 +141,6 @@ export class Tab2Page implements OnInit {
     );
   }
 
-  simpleNotif() {
-    this.localNotifications.schedule({
-      // id: 1,
-      title: "Kerala Wings App",
-      text:
-        "Hai... " +
-        this.userDetails.first_name +
-        "we keeps you updated for active trips...",
-      sound: this.plt.is("android") ? "file://assets/tune-android/Antique-Phone.mp3" : "file://beep.caf",
-      // smallIcon: 'res://icon/favicon.png',
-      // sound: this.plt.is("android")
-      //   ? "../../assets/tune-android/Antique-Phone.mp3"
-      //   : "../../assets/tune-ios/high.m4r",
-      // data: { secret: 'secret' },
-      // icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzfXKe6Yfjr6rCtR6cMPJB8CqMAYWECDtDqH-eMnerHHuXv9egrw",
-      // group: 'trip',
-      // sticky: true,
-      // autoClear: false,
-      // lockscreen: true,
-      // foreground: true,
-      // launch: true,
-      // priority: 2,
-      // led: true,
-      // vibrate: true,
-      // attachments: [],
-      // actions:[],
-      // trigger: {
-      //   every: {
-      //     minute: 15
-      //   },
-      // }
-    });
-  }
-
   setRingtone() {
     // Preload the audio track
     this.nativeAudio.preloadSimple(
@@ -196,11 +163,12 @@ export class Tab2Page implements OnInit {
       },
       modules: [Navigation, Pagination],
     });
-    if (this.slideView.allowSlideNext === true) {
+    if (swiper.allowSlideNext === true) {
       setInterval(() => {
-        this.slideView.swiperRef.slideNext(3000);
+        swiper.slideNext(3000);
       }, 5000);
     }
+    console.log("Swiper:",swiper);
   }
 
   getUserDetails() {
@@ -224,7 +192,11 @@ export class Tab2Page implements OnInit {
       (res: any) => {
         const responseData = JSON.parse(res.data);
         if (responseData.status === true) {
-          this.tripDetails = responseData.active_trip;
+          if(this.userDetails.type === "Taxi Driver") {
+            this.tripDetails = responseData.active_trip;
+          } else {
+            this.tripDetails = responseData.active_trip_taxi;
+          }
           console.log("tripDetails:", this.tripDetails);
         }
       },
@@ -339,10 +311,6 @@ export class Tab2Page implements OnInit {
   }
 
   playSingle() {
-    // this.backgroundMode.enable();
-    // this.backgroundMode.on("activate").subscribe(() => {
-    //   this.backgroundMode.disableWebViewOptimizations();
-    //   console.log("BackgroundMode is enabled");
     this.nativeAudio
       .play("uniqueId1")
       .then(() => {
@@ -352,14 +320,9 @@ export class Tab2Page implements OnInit {
       .catch((err) => {
         console.log("error", err);
       });
-    // });
   }
 
   playLoop() {
-    // this.backgroundMode.enable();
-    // this.backgroundMode.on("activate").subscribe(() => {
-    //   this.backgroundMode.disableWebViewOptimizations();
-    //   console.log("BackgroundMode is enabled");
     this.nativeAudio
       .loop("uniqueId1")
       .then(() => {

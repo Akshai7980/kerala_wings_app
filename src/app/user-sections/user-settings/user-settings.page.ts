@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { Platform } from '@ionic/angular';
+import { Component, OnInit } from "@angular/core";
+import { CommonService } from "src/app/_service/common.service";
 
 @Component({
-  selector: 'app-user-settings',
-  templateUrl: './user-settings.page.html',
-  styleUrls: ['./user-settings.page.scss'],
+  selector: "app-user-settings",
+  templateUrl: "./user-settings.page.html",
+  styleUrls: ["./user-settings.page.scss"],
 })
 export class UserSettingsPage implements OnInit {
-  settings: any = [];
-
-  constructor(
-    public plt: Platform
-  ) { }
+  constructor(private common: CommonService) {}
 
   ngOnInit() {
-    this.settings.length = 10;
+    this.common.simpleLoader('');
+    setTimeout(() => {
+      this.common.loadingCtrl.dismiss();
+    }, 2000);
   }
-
 }

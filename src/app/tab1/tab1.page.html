@@ -11,6 +11,10 @@
 
 <ion-content [fullscreen]="true">
 
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div style="text-align: center; margin-top: 70%;" *ngIf="hideSkeleton === undefined && tripDetails.length === 0">
     <ion-spinner name="crescent"></ion-spinner>
   </div>
@@ -23,7 +27,7 @@
   </div>
 
   <div *ngIf="!hideSkeleton && tripDetails.length !== 0">
-    <div *ngFor="let trip of tripDetails;"
+    <div *ngFor="let trip of tripDetails; trackBy: trackByFn" 
       style="border-radius: 10px; border: 1px solid #9e9e9ea6; padding: 12px; margin: 10px;">
       <h3 style="font-weight: 600; display: flex; align-items: center;">
         <ion-icon name="star" style="color: red; margin-right: 7px;"></ion-icon>

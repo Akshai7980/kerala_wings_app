@@ -140,3 +140,85 @@
     prevEl: '.swiper-button-prev',
   },
 });
+
+        // this.backgroundMode.isScreenOff(function (bool) {
+        //   console.log("isScreenOff:", bool);
+        //   if (bool === true) {
+        //     this.backgroundMode.wakeUp();
+        //     this.backgroundMode.unlock();
+        //     this.backgroundMode.moveToForeground();
+        //   }
+        //   //   else {
+        //   //   this.backgroundMode.moveToForeground();
+        //   //  }
+        // });
+
+
+          simpleNotif() {
+    this.localNotifications.schedule({
+      // id: 1,
+      title: "Kerala Wings App",
+      text:
+        "Hai... " +
+        this.userDetails.first_name +
+        "we keeps you updated for active trips...",
+      sound: this.plt.is("android")
+        ? "file://assets/tune-android/Antique-Phone.mp3"
+        : "file://beep.caf",
+      // smallIcon: 'res://icon/favicon.png',
+      // sound: this.plt.is("android")
+      //   ? "../../assets/tune-android/Antique-Phone.mp3"
+      //   : "../../assets/tune-ios/high.m4r",
+      // data: { secret: 'secret' },
+      // icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzfXKe6Yfjr6rCtR6cMPJB8CqMAYWECDtDqH-eMnerHHuXv9egrw",
+      // group: 'trip',
+      // sticky: true,
+      // autoClear: false,
+      // lockscreen: true,
+      // foreground: true,
+      // launch: true,
+      // priority: 2,
+      // led: true,
+      // vibrate: true,
+      // attachments: [],
+      // actions:[],
+      // trigger: {
+      //   every: {
+      //     minute: 15
+      //   },
+      // }
+    });
+  }
+
+
+      // this.backgroundMode.enable();
+    // this.backgroundMode.on("activate").subscribe(() => {
+    //   this.backgroundMode.disableWebViewOptimizations();
+    //   console.log("BackgroundMode is enabled");
+
+
+    // this.backgroundMode.enable();
+    // this.backgroundMode.on("activate").subscribe(() => {
+    //   this.backgroundMode.disableWebViewOptimizations();
+    //   console.log("BackgroundMode is enabled");
+
+
+      checkIfNavDisabled(object, slideView) {
+    this.checkisBeginning(object, slideView);
+    this.checkisEnd(object, slideView);
+  }
+
+  checkisBeginning(object, slideView) {
+    object.isBeginningSlide = slideView?.swiperRef?.isBeginning;
+    console.log("object.isBeginningSlide", object);
+  }
+  checkisEnd(object, slideView) {
+    object.isEndSlide = slideView?.swiperRef?.isEnd;
+    console.log("object.isEndSlide", object);
+  }
+
+  onSlideChange(object, slideView) {
+    this.slideView = slideView;
+    if (object?.slidesItems.length !== 0) {
+    }
+  }

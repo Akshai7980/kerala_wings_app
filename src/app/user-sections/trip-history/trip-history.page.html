@@ -1,7 +1,7 @@
 <ion-header class="ion-no-border">
   <ion-toolbar style="--background: white">
     <ion-buttons slot="start">
-      <ion-back-button icon="chevron-back" style="color: black">
+      <ion-back-button icon="chevron-back" style="color: black" defaultHref="/user-dashborad">
       </ion-back-button>
     </ion-buttons>
     <ion-title style="color: black">Trip History</ion-title>
@@ -11,7 +11,6 @@
 <ion-content>
 
   <!-- Skeleton screen -->
-<div *ngIf="closedTrip.length === 0 && closedDriver.length === 0">
   <ion-list>
     <ion-item *ngFor="let s of skeleton">
       <ion-thumbnail slot="start">
@@ -30,7 +29,6 @@
       </ion-label>
     </ion-item>
   </ion-list>
-</div>
 
   <!-- <div>
     <ion-img src="../../assets/images/carbook2.jpeg" style="height: 300px;"></ion-img>

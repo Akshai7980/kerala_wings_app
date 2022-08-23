@@ -229,3 +229,49 @@
   // ionViewWillLeave() {
   //   clearInterval(this.interval);
   // }
+
+
+   && responseData.active_trip.length > 0
+          // this.tripDetails = responseData?.active_trip;
+
+
+  getTaxiTripDetails(details: any) {
+    const params = {
+      driver_id: details.id,
+    };
+    console.log("params:", params);
+    this.api.post("active_trip_taxi", params).then(
+      (res: any) => {
+        console.log("res:", res);
+        const responseData = JSON.parse(res.data);
+        if (responseData.status === true && responseData.all_taxibooking.length > 0) {
+
+          // this.tripDetails = responseData?.all_taxibooking;
+          console.log("tripDetails:", this.tripDetails);
+          if (this.tripDetails[0]?.driver_view_status === 0) {
+            this.updateTripSeenStatus(this.tripDetails[0]?.id);
+            console.log("seen status updated");
+          } else {
+            console.log("seen status updated already");
+          }
+          console.log("tripDetails:", this.tripDetails);
+          this.hideSkeleton = false;
+          this.getTodayDate();
+          this.getYesterdayDate();
+          this.getTomorrowDate();
+          this.getDayOfPastTrip();
+        } else {
+          this.tripDetails = [];
+          setTimeout(() => {
+            this.hideSkeleton = true;
+          }, 100);
+        }
+      },
+      (err) => {
+        console.log("err", err);
+      }
+    );
+  }
+
+
+        // const loadingMsg = 'We are updating your trip amount, please wait...';

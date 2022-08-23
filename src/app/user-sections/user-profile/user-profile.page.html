@@ -60,7 +60,7 @@
 
       <div style="text-align: center">
         <ion-button expand="block" type="submit" shape="round" style="text-transform: none; --background: #3425c7;--box-shadow: none;
-        height: 50px;">
+        height: 50px;" [disabled]="!userProfileForm.dirty && !userProfileForm.touched">
           Update Profile
         </ion-button>
       </div>

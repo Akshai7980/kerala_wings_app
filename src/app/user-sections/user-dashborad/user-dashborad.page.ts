@@ -51,20 +51,29 @@ export class UserDashboradPage implements OnInit {
         this.welcomeText = "want to go?";
       }
     }, 3000);
-    // this.getUserDetails();
     this.getCalculateDays();
   }
 
   getCalculateDays() {
     const date = new Date();
     date.setDate(date.getDate() + 2);
-    console.log(date);
+    console.log("date:", date);
   }
 
   ionViewWillEnter() {
-    // this.getActiveTrip(this.userDetails.customer_number);
-    // this.getActiveDriver(this.userDetails.customer_number);
     this.getUserDetails();
+  }
+
+  doRefresh(event: any) {
+    this.getAllBookingDriver(this.userDetails.customer_number);
+    this.getAllBookingCab(this.userDetails.customer_number);
+    this.getActiveTrip(this.userDetails.customer_number);
+    this.getActiveDriver(this.userDetails.customer_number);
+
+    setTimeout(() => {
+      console.log("Async operation has ended");
+      event.target.complete();
+    }, 2000);
   }
 
   getUserDetails() {
@@ -89,15 +98,26 @@ export class UserDashboradPage implements OnInit {
       (res: any) => {
         const responseData = JSON.parse(res.data);
         console.log("responseData:", responseData);
-        if (responseData.status === true) {
-          this.allBooking = responseData.all_driverbooking;
+        if (
+          responseData.status === true &&
+          responseData.all_driverbooking.length > 0
+        ) {
+          this.allBooking = [];
+          for (let i = 0; i < responseData.all_driverbooking.length; i++) {
+            if (responseData.all_driverbooking[i].trip_status === 0) {
+              // trip status is 0 means, the booked trip is in pending
+              this.allBooking.push(responseData.all_driverbooking[i]);
+            }
+          }
           console.log("allBooking:", this.allBooking);
         } else {
           console.log("false");
+          this.allBooking = [];
         }
       },
       (err) => {
         console.log("err:", err);
+        this.allBooking = [];
         const toastMsg = "Something went wrong, please try again later !";
         const toastTime = 2000;
         this.common.presentToast(toastMsg, toastTime);
@@ -114,15 +134,26 @@ export class UserDashboradPage implements OnInit {
       (res: any) => {
         const responseData = JSON.parse(res.data);
         console.log("responseData:", responseData);
-        if (responseData.status === true) {
-          this.allBookingTaxi = responseData.all_taxibooking;
+        if (
+          responseData.status === true &&
+          responseData.all_taxibooking.length > 0
+        ) {
+          this.allBookingTaxi = [];
+          for (let i = 0; i < responseData.all_taxibooking.length; i++) {
+            if (responseData.all_taxibooking[i].trip_status === 0) {
+              // trip status is 0 means, the booked trip is in pending
+              this.allBookingTaxi.push(responseData.all_taxibooking[i]);
+            }
+          }
           console.log("allBookingTaxi:", this.allBookingTaxi);
         } else {
+          this.allBookingTaxi = [];
           console.log("false");
         }
       },
       (err) => {
         console.log("err:", err);
+        this.allBookingTaxi = [];
         const toastMsg = "Something went wrong, please try again later !";
         const toastTime = 2000;
         this.common.presentToast(toastMsg, toastTime);
@@ -139,15 +170,26 @@ export class UserDashboradPage implements OnInit {
       (res: any) => {
         const responseData = JSON.parse(res.data);
         console.log("responseData:", responseData);
-        if (responseData.status === true) {
-          this.activeTrip = responseData.all_taxibooking;
+        if (
+          responseData.status === true &&
+          responseData.all_taxibooking.length > 0
+        ) {
+          this.activeTrip = [];
+          for (let i = 0; i < responseData.all_taxibooking.length; i++) {
+            if (responseData.all_taxibooking[i].trip_status === 1) {
+              // trip status is 1 means, the booked trip is active
+              this.activeTrip.push(responseData.all_taxibooking[i]);
+            }
+          }
           console.log("activeTrip:", this.activeTrip);
         } else {
           console.log("false");
+          this.activeTrip = [];
         }
       },
       (err) => {
         console.log("err:", err);
+        this.activeTrip = [];
         const toastMsg = "Something went wrong, please try again later !";
         const toastTime = 2000;
         this.common.presentToast(toastMsg, toastTime);
@@ -164,15 +206,26 @@ export class UserDashboradPage implements OnInit {
       (res: any) => {
         const responseData = JSON.parse(res.data);
         console.log("responseData:", responseData);
-        if (responseData.status === true) {
-          this.activeDriver = responseData.all_driverbooking;
+        if (
+          responseData.status === true &&
+          responseData.all_driverbooking.length > 0
+        ) {
+          this.activeDriver = [];
+          for (let i = 0; i < responseData.all_driverbooking.length; i++) {
+            if (responseData.all_driverbooking[i].trip_status === 1) {
+              // trip status is 1 means, the booked trip is active
+              this.activeDriver.push(responseData.all_driverbooking[i]);
+            }
+          }
           console.log("activeDriver:", this.activeDriver);
         } else {
           console.log("false");
+          this.activeDriver = [];
         }
       },
       (err) => {
         console.log("err:", err);
+        this.activeDriver = [];
         const toastMsg = "Something went wrong, please try again later !";
         const toastTime = 2000;
         this.common.presentToast(toastMsg, toastTime);
@@ -180,14 +233,15 @@ export class UserDashboradPage implements OnInit {
     );
   }
 
-  gotoPage(page: string, type: string, trip: any) {
+  gotoPage(page: string, type: string, trip: any, tripType: string) {
     const p = page;
-    console.log('trip:',trip);
+    console.log("trip:", trip);
     const navigationExtras: NavigationExtras = {
       state: {
         userInfo: this.userDetails,
         clickedType: type,
-        tripDetails: trip
+        tripDetails: trip,
+        modeOfTrip: tripType,
       },
     };
     this.common.router.navigate([p], navigationExtras);

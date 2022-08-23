@@ -13,6 +13,7 @@ import { ApiService } from '../_service/api.service';
 import { CommonService } from '../_service/common.service';
 import { StorageService } from '../_service/storage.service';
 import { FCM } from 'cordova-plugin-fcm-with-dependecy-updated/ionic/ngx';
+import { AuthenticationService } from '../_service/Authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginPage implements OnInit {
     private common: CommonService,
     private storage: StorageService,
     private api: ApiService,
-    private fcm: FCM
+    private fcm: FCM,
+    private authService: AuthenticationService
   ) {
     this.loginForm = this.formBuilder.group({
       mobile: new FormControl(
@@ -178,7 +180,8 @@ export class LoginPage implements OnInit {
         console.log('login successful');
         this.storage.setStorage('USER_DETAILS', this.userDetails);
         console.log('userdetails:', this.userDetails);
-        this.common.navCtrl.navigateRoot('/tabs/tab2');
+        // this.common.navCtrl.navigateRoot('/tabs/tab2');
+        this.authService.login(this.userDetails);
       } else {
         console.log('otp not correct');
         const alertHead = 'Failed!';
