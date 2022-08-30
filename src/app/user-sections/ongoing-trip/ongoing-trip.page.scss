@@ -8,9 +8,36 @@ ion-toolbar {
   }
 }
 
+.trip-main-container {
+  background-color: #3425c7;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 15px;
+
+  h1 {
+    text-align: center;
+    margin: 15% 0% 10% 0%;
+    // font-family: cursive;
+    font-size: 40px;
+    color: white;
+    font-weight: 600;
+  }
+
+  .button-container {
+    text-align: center; margin-bottom: 10%;
+  }
+
+  ion-button {
+    --border-color: #eaa6a3;
+    --color: white;
+    font-weight: 600;
+    --background: transparent;
+  }
+}
+
 // Trip details container styles
 .trip-details-main-container {
-  background-color: #3425c7;
+  background-color: green;
   padding: 15px;
   margin: 15px;
   border-radius: 15px;
@@ -64,4 +91,12 @@ ion-toolbar {
     font-weight: 600;
     --background: transparent;
   }
+}
+
+.active-trip-container {
+  background-color: Green;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 15px;
+  color: white;
 }

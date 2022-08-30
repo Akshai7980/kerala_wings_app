@@ -57,43 +57,72 @@ ion-header {
   padding: 15px;
   margin: 15px;
   border-radius: 15px;
+  color: white;
 
-  .booked-ride-text {
+  .chip-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    h6 {
-      color: white;
-      font-weight: 600;
-    }
+    justify-content: end;
 
     ion-chip {
-      --background: #aa7cff;
+      --background: #faca30;
+    }
+
+    ion-icon {
+      color: black;
+    }
+
+    ion-label {
+      color: black;
     }
   }
-  .trip-details-container {
+
+  .inner-container {
+    display: flex; justify-content: space-between;
+  }
+
+  .button-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0px 15px;
+    margin-top: 5px;
 
-    h6 {
-      color: white;
-      font-weight: 600;
-    }
-    p {
-      margin: 0px;
-      color: antiquewhite;
+    #details {
+      --border-color: orange;
+      --background: transparent;
+      --color: white;
     }
   }
+}
 
-  ion-button {
-    --border-color: #eaa6a3;
-    --color: white;
+.active-trip-container {
+  background-color: Green;
+  padding: 15px;
+  margin: 15px;
+  border-radius: 15px;
+  color: white;
+}
+
+.trip-details-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 15px;
+
+  h6 {
+    color: white;
     font-weight: 600;
-    --background: transparent;
   }
+  p {
+    margin: 0px;
+    color: antiquewhite;
+  }
+}
+
+ion-button {
+  --border-color: #eaa6a3;
+  --color: white;
+  font-weight: 600;
+  --background: transparent;
 }
 
 .section-container {

@@ -70,7 +70,7 @@ export class Tab1Page implements OnInit {
     });
   }
 
-  trackByFn(index: number, item: any): number {
+  trackByFn(item: any): number {
     return item.serialNumber;
   }
 

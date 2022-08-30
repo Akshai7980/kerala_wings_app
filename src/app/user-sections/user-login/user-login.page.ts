@@ -10,6 +10,7 @@ import { ApiService } from "src/app/_service/api.service";
 import { CommonService } from "src/app/_service/common.service";
 import { StorageService } from "src/app/_service/storage.service";
 import { UserRegistrationPage } from "../user-registration/user-registration.page";
+import { FCM } from "cordova-plugin-fcm-with-dependecy-updated/ionic/ngx";
 
 @Component({
   selector: "app-user-login",
@@ -30,7 +31,8 @@ export class UserLoginPage implements OnInit {
     private formBuilder: FormBuilder,
     public common: CommonService,
     private storage: StorageService,
-    private api: ApiService
+    private api: ApiService,
+    private fcm: FCM
   ) {
     this.otpForm = this.formBuilder.group({
       otp: new FormControl(
@@ -46,6 +48,13 @@ export class UserLoginPage implements OnInit {
 
   ngOnInit() {
     this.loginFormValidator();
+
+    if (this.common.platform.is("cordova")) {
+      this.getToken();
+      this.subscribePushNotification();
+    } else {
+      console.log("web");
+    }
   }
 
   loginFormValidator() {
@@ -61,6 +70,43 @@ export class UserLoginPage implements OnInit {
       role: new FormControl("user"),
       token: new FormControl(""),
     });
+  }
+
+  subscribePushNotification() {
+    this.fcm.onNotification().subscribe(
+      (data) => {
+        console.log("data:", data);
+        if (data.wasTapped) {
+          console.log("Notification Received in background");
+        } else {
+          console.log("Notification Received in foreground");
+        }
+      },
+      (err) => {
+        console.log("Error:", err);
+      }
+    );
+
+    this.fcm.onTokenRefresh().subscribe(
+      (token) => {
+        console.log("token:", token);
+      },
+      (err) => {
+        console.log("Error:", err);
+      }
+    );
+  }
+
+  getToken() {
+    this.fcm
+      .getToken()
+      .then((token) => {
+        console.log("token:", token);
+        this.loginForm.get("token").setValue(token);
+      })
+      .catch((err) => {
+        console.log("Error:", err);
+      });
   }
 
   loginSubmit() {
@@ -154,7 +200,7 @@ export class UserLoginPage implements OnInit {
   async presentRegisterModal(userId: number) {
     const modal = await this.common.modalCtrl.create({
       component: UserRegistrationPage,
-      cssClass: 'register-modal',
+      cssClass: "register-modal",
       componentProps: {
         phone: this.loginForm.value.mobile,
         userId: userId,

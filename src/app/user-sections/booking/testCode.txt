@@ -142,3 +142,54 @@
       (today.getMonth() + 1) +
       "-" +
       today.getDate();
+
+
+                  <!-- <ion-modal trigger="trigger-start-time-cab">
+              <ng-template>
+                <ion-content>
+                  <ion-datetime presentation="time" (ionChange)="doSomethingTime($event)">
+                    <div slot="title"></div>
+                  </ion-datetime>
+                </ion-content>
+              </ng-template>
+            </ion-modal> -->
+
+
+                        <!-- <ion-modal trigger="trigger-end-date-cab">
+              <ng-template>
+                <ion-content>
+                  <ion-datetime presentation="date" (ionChange)="doSomethingEndDate($event, 'cab')">
+                    <div slot="title"></div>
+                  </ion-datetime>
+                </ion-content>
+              </ng-template>
+            </ion-modal> -->
+
+
+                        <!-- <ion-modal trigger="trigger-start-time">
+              <ng-template>
+                <ion-content>
+                  <ion-datetime presentation="time" (ionChange)="doSomethingTime($event)">
+                    <div slot="title"></div>
+                  </ion-datetime>
+                </ion-content>
+              </ng-template>
+            </ion-modal> -->
+
+                        <!-- <ion-button type="submit" shape="round" style="text-transform: none">Book Now</ion-button> -->
+
+
+            <!-- <ion-modal trigger="trigger-end-date">
+              <ng-template>
+                <ion-content>
+                  <ion-datetime presentation="date" (ionChange)="doSomethingEndDate($event, 'driver')">
+                    <div slot="title"></div>
+                  </ion-datetime>
+                </ion-content>
+              </ng-template>
+            </ion-modal> -->
+
+                        <!-- <ion-input autocapitalize="on" type="text" formControlName="driver"></ion-input> -->
+            
+            
+            <!-- <ion-button type="submit" shape="round" style="text-transform: none">Book Now</ion-button> -->

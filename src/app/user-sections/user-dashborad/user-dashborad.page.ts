@@ -21,6 +21,7 @@ export class UserDashboradPage implements OnInit {
   activeDriver: any = [];
   allBooking: any = [];
   allBookingTaxi: any = [];
+  displayDay: string;
 
   constructor(
     private common: CommonService,
@@ -61,7 +62,13 @@ export class UserDashboradPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.getUserDetails();
+    this.interval = setInterval(() => {
+      this.getUserDetails();
+    }, 5000);
+  }
+
+  ionViewWillLeave() {
+    clearInterval(this.interval);
   }
 
   doRefresh(event: any) {
@@ -74,6 +81,10 @@ export class UserDashboradPage implements OnInit {
       console.log("Async operation has ended");
       event.target.complete();
     }, 2000);
+  }
+
+  trackByFn(item: any): number {
+    return item.serialNumber;
   }
 
   getUserDetails() {
@@ -104,12 +115,20 @@ export class UserDashboradPage implements OnInit {
         ) {
           this.allBooking = [];
           for (let i = 0; i < responseData.all_driverbooking.length; i++) {
-            if (responseData.all_driverbooking[i].trip_status === 0) {
-              // trip status is 0 means, the booked trip is in pending
-              this.allBooking.push(responseData.all_driverbooking[i]);
+            if (responseData.all_driverbooking[i].booking_type === "driver") {
+              if (responseData.all_driverbooking[i].trip_status === 0) {
+                // trip status is 0 means, the booked trip is in pending
+                this.allBooking.push(responseData.all_driverbooking[i]);
+              }
             }
           }
           console.log("allBooking:", this.allBooking);
+          this.allBooking.forEach((element: any) => {
+            this.getTodayDate(element.booking_date);
+            this.getYesterdayDate(element.booking_date);
+            this.getTomorrowDate(element.booking_date);
+            this.getDayOfPastTrip(element.booking_date);
+          });
         } else {
           console.log("false");
           this.allBooking = [];
@@ -140,12 +159,20 @@ export class UserDashboradPage implements OnInit {
         ) {
           this.allBookingTaxi = [];
           for (let i = 0; i < responseData.all_taxibooking.length; i++) {
-            if (responseData.all_taxibooking[i].trip_status === 0) {
-              // trip status is 0 means, the booked trip is in pending
-              this.allBookingTaxi.push(responseData.all_taxibooking[i]);
+            if (responseData.all_taxibooking[i].booking_type === "taxi") {
+              if (responseData.all_taxibooking[i].trip_status === 0) {
+                // trip status is 0 means, the booked trip is in pending
+                this.allBookingTaxi.push(responseData.all_taxibooking[i]);
+              }
             }
           }
           console.log("allBookingTaxi:", this.allBookingTaxi);
+          this.allBookingTaxi.forEach((element: any) => {
+            this.getTodayDate(element.booking_date);
+            this.getYesterdayDate(element.booking_date);
+            this.getTomorrowDate(element.booking_date);
+            this.getDayOfPastTrip(element.booking_date);
+          });
         } else {
           this.allBookingTaxi = [];
           console.log("false");
@@ -176,12 +203,20 @@ export class UserDashboradPage implements OnInit {
         ) {
           this.activeTrip = [];
           for (let i = 0; i < responseData.all_taxibooking.length; i++) {
-            if (responseData.all_taxibooking[i].trip_status === 1) {
-              // trip status is 1 means, the booked trip is active
-              this.activeTrip.push(responseData.all_taxibooking[i]);
+            if (responseData.all_taxibooking[i].booking_type === "taxi") {
+              if (responseData.all_taxibooking[i].trip_status === 1) {
+                // trip status is 1 means, the booked trip is active
+                this.activeTrip.push(responseData.all_taxibooking[i]);
+              }
             }
           }
           console.log("activeTrip:", this.activeTrip);
+          this.activeTrip.forEach((element: any) => {
+            this.getTodayDate(element.booking_date);
+            this.getYesterdayDate(element.booking_date);
+            this.getTomorrowDate(element.booking_date);
+            this.getDayOfPastTrip(element.booking_date);
+          });
         } else {
           console.log("false");
           this.activeTrip = [];
@@ -212,12 +247,20 @@ export class UserDashboradPage implements OnInit {
         ) {
           this.activeDriver = [];
           for (let i = 0; i < responseData.all_driverbooking.length; i++) {
-            if (responseData.all_driverbooking[i].trip_status === 1) {
-              // trip status is 1 means, the booked trip is active
-              this.activeDriver.push(responseData.all_driverbooking[i]);
+            if (responseData.all_driverbooking[i].booking_type === "driver") {
+              if (responseData.all_driverbooking[i].trip_status === 1) {
+                // trip status is 1 means, the booked trip is active
+                this.activeDriver.push(responseData.all_driverbooking[i]);
+              }
             }
           }
           console.log("activeDriver:", this.activeDriver);
+          this.activeDriver.forEach((element: any) => {
+            this.getTodayDate(element.booking_date);
+            this.getYesterdayDate(element.booking_date);
+            this.getTomorrowDate(element.booking_date);
+            this.getDayOfPastTrip(element.booking_date);
+          });
         } else {
           console.log("false");
           this.activeDriver = [];
@@ -268,9 +311,10 @@ export class UserDashboradPage implements OnInit {
     return await modal.present();
   }
 
-  callTripClient() {
+  callTripClient(mobileNumber: any) {
+    console.log("mobileNumber:",mobileNumber);
     this.callNumber
-      .callNumber("+91 9037502502", true)
+      .callNumber(mobileNumber, true)
       .then((res) => console.log("Launched dialer!", res))
       .catch((err) => console.log("Error launching dialer", err));
   }
@@ -366,6 +410,54 @@ export class UserDashboradPage implements OnInit {
           this.common.presentToast(toastMsg, toastTime);
         }
       );
+    }
+  }
+
+  getTodayDate(TripBookingDate) {
+    const dt = new Date();
+    const today = dt.toDateString();
+    const bookingDateToGMT = new Date(TripBookingDate);
+    const bookingDate = bookingDateToGMT.toDateString();
+    if (bookingDate === today) {
+      return (this.displayDay = "Today");
+    }
+  }
+
+  getYesterdayDate(TripBookingDate) {
+    const today = new Date();
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const bookingDateToGMT = new Date(TripBookingDate);
+    if (bookingDateToGMT.toDateString() === yesterday.toDateString()) {
+      return (this.displayDay = "Yesterday");
+    }
+  }
+
+  getTomorrowDate(TripBookingDate) {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const bookingDateToGMT = new Date(TripBookingDate);
+    if (bookingDateToGMT.toDateString() === tomorrow.toDateString()) {
+      return (this.displayDay = "Tomorrow");
+    }
+  }
+
+  getDayOfPastTrip(TripBookingDate) {
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+    const bookingDateToGMT = new Date(TripBookingDate);
+    if (
+      bookingDateToGMT.toDateString() !== today.toDateString() &&
+      bookingDateToGMT.toDateString() !== tomorrow.toDateString() &&
+      bookingDateToGMT.toDateString() !== yesterday.toDateString()
+    ) {
+      return (this.displayDay =
+        "Last " +
+        bookingDateToGMT.toLocaleDateString("en-US", { weekday: "long" }));
     }
   }
 }

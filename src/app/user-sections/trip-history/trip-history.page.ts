@@ -40,11 +40,13 @@ export class TripHistoryPage implements OnInit {
         console.log("res:", res);
         if (res.status === true && res.all_taxibooking.length > 0) {
           this.closedTrip = [];
+          this.skeleton.length = 0;
           const allTaxiBooking = res.all_taxibooking;
           for (let i = 0; i < allTaxiBooking.length; i++) {
             if (allTaxiBooking[i].trip_status === 2) {
               // trip status is 2 means, the booked trip is closed
               this.closedTrip.push(allTaxiBooking[i]);
+              this.closedTrip.reverse();
             }
           }
           console.log("closedTrip:", this.closedTrip);
@@ -73,11 +75,13 @@ export class TripHistoryPage implements OnInit {
         console.log("res:", res);
         if (res.status === true && res.all_driverbooking.length > 0) {
           this.closedDriver = [];
+          this.skeleton.length = 0;
           const allDriverBooking = res.all_driverbooking;
           for (let i = 0; i < allDriverBooking.length; i++) {
             if (allDriverBooking[i].trip_status === 2) {
               // trip status is 2 means, the booked trip is closed
               this.closedDriver.push(allDriverBooking[i]);
+              this.closedDriver.reverse();
             }
           }
           console.log("closedDriver:", this.closedDriver);

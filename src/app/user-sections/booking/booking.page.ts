@@ -71,12 +71,12 @@ export class BookingPage implements OnInit {
       new Date().toLocaleTimeString("en-US")
     );
     this.cabBookingForm.controls["no_day"].setValue("1");
+
     this.cabBookingForm.controls["vehicle_type"].setValue("Automatic");
-    if (this.cabBookingForm.value.no_day === "1") {
-      this.cabBookingForm.controls["end_date"].setValue(
-        today.toISOString().split("T")[0]
-      );
-    }
+
+    this.cabBookingForm.controls["end_date"].setValue(
+      today.toISOString().split("T")[0]
+    );
 
     this.driverBookingForm.controls["booking_date"].setValue(
       today.toISOString().split("T")[0]
@@ -87,11 +87,10 @@ export class BookingPage implements OnInit {
     // this.timeChoosed = new Date().toLocaleTimeString("en-US");
     // console.log('timepicker:',this.driverBookingForm.value.timepicker);
     this.driverBookingForm.controls["no_day"].setValue("1");
-    if (this.driverBookingForm.value.no_day === "1") {
-      this.driverBookingForm.controls["end_date"].setValue(
-        today.toISOString().split("T")[0]
-      );
-    }
+
+    this.driverBookingForm.controls["end_date"].setValue(
+      today.toISOString().split("T")[0]
+    );
 
     if (
       this.userDetails.vehicle_name &&
@@ -163,7 +162,7 @@ export class BookingPage implements OnInit {
         destination: this.cabBookingForm.value.destination,
         vehicle: this.userDetails.vehicle,
         remarks: this.cabBookingForm.value.remark,
-        no_day: this.cabBookingForm.value.no_day,
+        no_day: Number(this.cabBookingForm.value.no_day),
         location: this.userDetails.location,
         driver: 0,
         booking_date: this.cabBookingForm.value.booking_date,
@@ -215,7 +214,7 @@ export class BookingPage implements OnInit {
           destination: this.driverBookingForm.value.destination,
           vehicle: "Car",
           remarks: this.driverBookingForm.value.remark,
-          no_day: this.driverBookingForm.value.no_day,
+          no_day: Number(this.driverBookingForm.value.no_day),
           location: this.userDetails.location,
           driver: 1,
           booking_date: this.driverBookingForm.value.booking_date,
@@ -279,7 +278,6 @@ export class BookingPage implements OnInit {
         hour12: true,
         hour: "numeric",
         minute: "numeric",
-        second: "numeric",
       });
       console.log("timeString12hr:", timeString12hr);
       this.timeChoosed = timeString12hr;
@@ -298,11 +296,15 @@ export class BookingPage implements OnInit {
         this.numberOfDays = days.No;
         this.cabBookingForm.controls["no_day"].setValue(days.No);
         const daysNumber = parseInt(days.No);
-        const date = new Date();
-        date.setDate(date.getDate() + daysNumber);
-        this.cabBookingForm.controls["end_date"].setValue(
-          date.toISOString().split("T")[0]
-        );
+        if (daysNumber === 1) {
+          console.log("only one day");
+        } else {
+          const date = new Date();
+          date.setDate(date.getDate() + daysNumber);
+          this.cabBookingForm.controls["end_date"].setValue(
+            date.toISOString().split("T")[0]
+          );
+        }
       }
     } else {
       if (days) {
@@ -310,11 +312,15 @@ export class BookingPage implements OnInit {
         this.numberOfDays = days.No;
         this.driverBookingForm.controls["no_day"].setValue(days.No);
         const daysNumber = parseInt(days.No);
-        const date = new Date();
-        date.setDate(date.getDate() + daysNumber);
-        this.driverBookingForm.controls["end_date"].setValue(
-          date.toISOString().split("T")[0]
-        );
+        if (daysNumber === 1) {
+          console.log("only one day");
+        } else {
+          const date = new Date();
+          date.setDate(date.getDate() + daysNumber);
+          this.driverBookingForm.controls["end_date"].setValue(
+            date.toISOString().split("T")[0]
+          );
+        }
       }
     }
   }

@@ -9,7 +9,6 @@
 </ion-header>
 
 <ion-content>
-
   <!-- Skeleton screen -->
   <ion-list>
     <ion-item *ngFor="let s of skeleton">
@@ -30,114 +29,172 @@
     </ion-item>
   </ion-list>
 
-  <!-- <div>
-    <ion-img src="../../assets/images/carbook2.jpeg" style="height: 300px;"></ion-img>
-  </div> -->
-  <div class="trip-details-main-container , animate__animated animate__fadeIn" *ngFor="let trip of closedDriver ">
-    <div class="booked-ride-text">
-      <div>
-        <h6> {{ trip?.updated_at | date:'mediumDate' }} </h6>
-      </div>
-      <div>
-        <ion-chip style="--background: white;">
-          <ion-icon name="man" style="color: black;"></ion-icon>
-          <ion-label style="color: black;">Driver</ion-label>
-        </ion-chip>
-      </div>
+  <!-- Kerala Wings Driver's Trip List view starts here -->
+  <div class="trip-details-main-container , animate__animated animate__fadeIn" *ngFor="let trip of closedTrip">
+    <div style="display: flex; justify-content: end">
+      <ion-chip style="--background: #faca30">
+        <ion-icon name="car-sport" style="color: black"></ion-icon>
+        <ion-label style="color: black">Cab</ion-label>
+      </ion-chip>
     </div>
 
-    <div class="trip-details-container">
+    <div style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+      ">
       <div>
-        <h6>Start Time</h6>
-        <p> {{ trip?.timepicker }} </p>
+        <p>
+          <strong> Start : {{ trip.booking_date | date:'mediumDate'}} </strong>
+        </p>
+        <p>
+          <strong> Pick Up Location </strong>
+        </p>
+        <p>
+          <strong> Destination </strong>
+        </p>
+        <p>
+          <strong> Vehicle Type </strong>
+        </p>
+        <p>
+          <strong> No: Of Seats </strong>
+        </p>
+
+        <div style="
+            background-color: #3b23c3;
+            padding: 5px 15px;
+            text-align: center;
+            border-radius: 10px;
+          ">
+          <p>
+            <strong> {{ trip.driver_id }} </strong>
+          </p>
+          <p>
+            <strong> {{ trip.vehicle_number }} </strong>
+          </p>
+        </div>
       </div>
-      <div style="width: 45%;">
-        <h6>Pick Up location</h6>
-        <p> {{ trip?.address }} </p>
-        <p> {{ trip?.location }} </p>
-        <h6>Destination</h6>
-        <p> {{ trip?.destination }} </p>
-        <h6>Vehicle Type</h6>
-        <p> {{ trip?.vehicle_name }} </p>
-        <h6>Number Of Seat</h6>
-        <p> {{ trip?.vehicle_name }} </p>
+      <div>
+        <p>
+          <strong> End : {{ trip.end_date | date:'mediumDate' }} </strong>
+        </p>
+        <p>
+          <strong> : {{ trip.location }} </strong>
+        </p>
+        <p>
+          <strong> : {{ trip.destination }} </strong>
+        </p>
+        <p>
+          <strong> : {{ trip.vehicle_type }} </strong>
+        </p>
+        <p>
+          <strong> : {{ trip.seat_no }} + 1 </strong>
+        </p>
+
+        <div style="
+            background-color: red;
+            padding: 5px 15px;
+            text-align: center;
+            border-radius: 10px;
+          ">
+          <p>
+            <strong> Amount Collected </strong>
+          </p>
+          <p>
+            <strong> {{ trip.amount}} /- </strong>
+          </p>
+        </div>
       </div>
     </div>
-
-    <div style="display: flex;
-    align-items: center;
-    justify-content: space-between; margin-top: 30px;">
-      <div style="background-color: #3425c7;
-      border: 1px solid white;
-      padding: 7px;
-      border-radius: 7px; margin-right: 5px;">
-        <h6 style="margin: 0px;
-        color: white;">Vehicle Number : {{ trip?.vehicle_number | uppercase }} </h6>
-      </div>
-      <div *ngIf="trip?.amount !== null" style="background-color: #3425c7;
-      border: 1px solid white;
-      padding: 7px;
-      border-radius: 7px; margin-left: 5px;">
-        <h6 style="margin: 0px;
-        color: white;">Amount Collected : {{ trip?.amount }} </h6>
-      </div>
-    </div>
-
   </div>
+  <!-- Kerala Wings Driver's Trip List view ends here -->
 
-  <div class="trip-details-main-container , animate__animated animate__fadeIn" *ngFor="let trip of closedTrip ">
-    <div class="booked-ride-text">
-      <div>
-        <h6> {{ trip?.updated_at | date:'mediumDate' }} </h6>
-      </div>
-      <div>
-        <ion-chip style="--background: #FACA30;">
-          <ion-icon name="car-sport" style="color: black;"></ion-icon>
-          <ion-label style="color: black;">Cab</ion-label>
-        </ion-chip>
-      </div>
+  <!-- Kerala Wings Driver's Taxi Trip List view starts here -->
+  <div class="trip-details-main-container , animate__animated animate__fadeIn" *ngFor="let trip of closedDriver">
+    <div style="display: flex; justify-content: end">
+      <ion-chip style="--background: white">
+        <ion-icon name="man" style="color: black"></ion-icon>
+        <ion-label style="color: black">Driver</ion-label>
+      </ion-chip>
     </div>
 
-    <div class="trip-details-container">
+    <div style="
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: white;
+      ">
       <div>
-        <h6>Start Time</h6>
-        <p> {{ trip?.timepicker }} </p>
+        <p>
+          <strong> Start : {{ trip.booking_date | date:'mediumDate'}} </strong>
+        </p>
+        <p>
+          <strong> Pick Up Location </strong>
+        </p>
+        <p>
+          <strong> Destination </strong>
+        </p>
+        <p>
+          <strong> Vehicle Name </strong>
+        </p>
+        <p>
+          <strong> Vehicle Transmission </strong>
+        </p>
+        <p>
+          <strong> Vehicle Number </strong>
+        </p>
 
-        <h6>End Date</h6>
-        <p> {{ trip?.end_date }} </p>
+        <div style="
+            background-color: #3b23c3;
+            padding: 5px 15px;
+            text-align: center;
+            border-radius: 10px;
+          ">
+          <p>
+            <strong> Driver Name </strong>
+          </p>
+          <p>
+            <strong> {{ trip.driver_id }} </strong>
+          </p>
+        </div>
       </div>
-      <div style="width: 45%;">
-        <h6>Pick Up Location</h6>
-        <p> {{ trip?.address }} </p>
-        <p> {{ trip?.location }} </p>
-        <h6>Destination</h6>
-        <p> {{ trip?.destination }} </p>
-        <h6>Vehicle Type</h6>
-        <p> {{ trip?.vehicle_type }} </p>
-        <h6>Number Of Seats</h6>
-        <p> {{ trip?.seat_no }} </p>
+      <div>
+        <p>
+          <strong> End : {{ trip.end_date | date:'mediumDate' }} </strong>
+        </p>
+        <p>
+          <strong> : {{ trip.location }} </strong>
+        </p>
+        <p>
+          <strong> : {{ trip.destination }} </strong>
+        </p>
+        <p>
+          <strong> : {{ trip.vehicle_name }} </strong>
+        </p>
+        <p>
+          <strong> : {{ trip.vehicle }} </strong>
+        </p>
+        <p>
+          <strong> : {{ trip.vehicle_number }} </strong>
+        </p>
+
+        <div style="
+            background-color: red;
+            padding: 5px 15px;
+            text-align: center;
+            border-radius: 10px;
+          ">
+          <p>
+            <strong> Amount Collected </strong>
+          </p>
+          <p>
+            <strong> {{ trip.amount}} /- </strong>
+          </p>
+        </div>
       </div>
     </div>
-
-    <div style="display: flex;
-    align-items: center;
-    justify-content: space-between; margin-top: 30px;">
-      <div style="background-color: #3425c7;
-      border: 1px solid white;
-      padding: 7px;
-      border-radius: 7px; margin-right: 5px;">
-        <h6 style="margin: 0px;
-        color: white;">Vehicle Number : {{ trip?.vehicle_number | uppercase }} </h6>
-      </div>
-      <div *ngIf="trip?.amount !== null" style="background-color: #3425c7;
-      border: 1px solid white;
-      padding: 7px;
-      border-radius: 7px; margin-left: 5px;">
-        <h6 style="margin: 0px;
-        color: white;">Amount Collected : {{ trip?.amount }} </h6>
-      </div>
-    </div>
-
   </div>
+  <!-- Kerala Wings Driver's Taxi Trip List view ends here -->
 
 </ion-content>
